@@ -1,0 +1,52 @@
+.e-grid .e-rowcell.magiaodich{
+  color: blue;
+  font-weight: bold;
+}
+.e-grid .e-rowcell.solo{
+  color: red;
+  font-weight: bold;
+}
+.e-grid .e-rowcell.mabohs{
+  color: brown;
+  font-weight: bold;
+}
+
+a.disabled { color:lightgray !important; }
+a.disabled:hover { color:lightgray !important; }
+.disabled { pointer-events: none; }
+::v-deep .modal-body .page-content { position:inherit; }
+
+.disabled { pointer-events: none; color:lightgray; border-color:lightgray; }
+input.disabled, select.disabled, .disabled input, .disabled select, .disabled ::v-deep .select2-selection { background-color: #EEE; color:lightgray;}
+::v-deep .modal-body .page-content { position:inherit; }
+li.active { background-color:lightblue; }
+.mx-datepicker { width:100%; }
+ul.form-control.listview { list-style:none; cursor: pointer; }
+::v-deep .modal-dialog { max-width:60vw; }
+
+input:invalid {
+    border-color:red;
+    background-color: lightcoral;
+}
+.btn-second { border-color: #0d6efd; }
+
+.main-wrapper .select2-container--focus .select2-selection {
+    border-color: #80bdff;
+    -webkit-box-shadow: 0 0 0 3px rgb(0 123 255 / 25%);
+    box-shadow: 0 0 0 3px rgb(0 123 255 / 25%);
+}
+
+
+
+.main-wrapper .panel-zoom-img {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background-color: transparent;
+    z-index: 99999;
+    margin: auto auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}

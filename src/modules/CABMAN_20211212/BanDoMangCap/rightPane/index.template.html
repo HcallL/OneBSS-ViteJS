@@ -1,0 +1,212 @@
+<div> 
+  <ModalChonTramThietBiExt ref="ModalChonTramThietBiExt"/>
+  <ModalTracnghiemExt ref="ModalTracnghiemExt"/>
+  <ModalChonDSKetCuoiExt modalID="ModalChonDSKetCuoiExt" ref="ModalChonDSKetCuoiExt"/>  
+  <ModalQLKetCuoiExt modalID="ModalChonDSKetCuoi" ref="ModalQLKetCuoiExt"/>
+  <ModalQLCapExt modalID="ModalQLCap" ref="ModalQLCap"/>
+  <ModalPhanChiaDoanCapChenKetCuoi modalID="ModalPhanChiaDoanCapChenKetCuoi" ref="ModalPhanChiaDoanCapChenKetCuoi"/>
+  <DauNoiCap id="popupDauNoiCap" :capObject="capObject"></DauNoiCap>
+  <TraCuuTBaoCap id="popupTraCuuTBaoCap" :doiTuong="doiTuongCap"></TraCuuTBaoCap>  
+  <TraCuuTBaoKetCuoi id="popupTraCuuTBaoKetCuoi" :doiTuong="doiTuongKetCuoi"/>
+  <QuanLyCapReNhanh id="popupQuanLyCapReNhanh" :midspanObject="midspanObject"></QuanLyCapReNhanh>
+  <QuanLyTramThietBi
+        id="popupTramThietBiGianDo"
+        :tramTb_id="tramTb_id"
+        @isOk="QuanLyTramThietBiIsOk">
+  </QuanLyTramThietBi>
+  <Split>
+    <SplitArea :size="getSizeAreaL()" :minSize="40">
+      <div class="nav tabs tab-over">
+        <a href="#tabB1" data-toggle="tab"  class="active"  @click="showtabpane=true">
+            <span class="nc-icon-glyph business_hierarchy-53 inline vcenter f24"></span> Giản đồ cáp
+        </a>
+        <a href="#tabB2" data-toggle="tab"  @click="showtabpane=false">
+            <span class="nc-icon-glyph location_map-pin inline vcenter f24"></span> Bản đồ cáp        
+        </a>
+      </div>
+      <div class="tab-content marb0">     
+        <div class="tab-pane active" id="tabB1" v-show="showtabpane">
+          <div class="sitemap-chart-canvas relative" style="height: auto;">    
+            <GianDo ref="giando" 
+              @suaKetcuoi="suaKetcuoi"
+              @suaCap="suaCap"
+              @xoaCap="xoaCap" 
+              @taoKetcuoi="taoKetcuoi" 
+              @xoaKetcuoi="xoaKetcuoi" 
+              @chenketcuoi="chenketcuoi"
+              @taoKetCuoiDich="taoKetCuoiDich"
+              @dauNoiCap="dauNoiCap"
+              @dauNoiBenTrong="dauNoiBenTrong"
+              @thueBaoThuocCap="thueBaoThuocCap"
+              @thueBaoThuocKetCuoi="thueBaoThuocKetCuoi"
+              @chuyennhanhcap="chuyennhanhcap"
+              @daochieuCap="daochieuCap"
+              @suaTram="suaTram"
+              @TramThietBi="TramThietBi"
+            >
+          </GianDo>     
+            <div class="zoom-actions">
+              <a href="javascript:void(0)" class="btn btn-main" @click="showTimKiem()">
+                  <span class="icon one-search"></span>
+              </a>
+              <a href="javascript:void(0)" class="btn btn-main" @click="zoomOut()">
+                  <span class="icon ui-1_zoom-out nc-icon-outline"></span>
+              </a>
+              <a href="javascript:void(0)" class="btn btn-main" @click="zoomIn()">
+                  <span class="icon ui-1_zoom-in nc-icon-outline"></span>
+              </a>          
+            </div>  
+    
+            <div class="bottom-actions">
+              <a v-if="bottomactions" href="javascript:void(0)" v-b-tooltip.hover title="Tạo cáp" @click="taoCap">
+                  /
+              </a>
+              <a v-if="bottomactions" href="javascript:void(0)" v-b-tooltip.hover title="Tạo kết cuối" @click="taoketCuoi">
+                  <span class="icon nc-icon-glyph location_crosshair"></span>
+              </a>
+              <a href="javascript:void(0)" class="delete" @click="bottomactions=!bottomactions">
+                  <span :class="[bottomactions ? 'icon -ap icon-close' : 'icon -ap icon-add']"></span>
+              </a>
+            </div>  
+    
+            <div class="box-search" v-show="timKiemDT===true">
+              <div class="info-row marb0">
+                  <div class="key w80 text-main">Tìm kiếm</div>                            
+                  <div class="value" style="width: 120px">
+                      <div class="select-custom">
+                          <select name="" id="" class="form-control" v-model="valueLoaiDT">
+                              <option v-for="(item,index) in dsLoaiDT" :value="item.value">{{item.label}}</option>
+                          </select>                     
+                      </div>
+                  </div>              
+                  <div class="value">
+                      <div class="dropdown">                    
+                          <input type="text" placeholder="Nhập vào đối tượng cần tìm" class="form-control"  data-toggle="dropdown" v-model="txtTimKiem">
+                          <div class="dropdown-menu dropdown-search">
+                              <a v-for="(item,index) in dsDT" href="javascript:void(0)" @click="setTxtTimKiem(item.OBJ_NAME,item.SEARCH_QUERY)">
+                                  <span class="title">{{item.OBJ_NAME}}</span>
+                                  <span class="desc">{{item.NOTE}}</span>
+                              </a>                         
+                          </div>
+                      </div>
+                  </div>
+                  <div class="value w20 nowrap">
+                      <button class="btn btn-main" @click="onTimKiem()">
+                          <span class="lh18 one-search"></span>
+                      </button>
+                      <button class="btn btn-main" @click="hideTimKiem()">
+                          <span class="lh18 -ap icon-close"></span>
+                      </button>
+                  </div>
+              </div>
+            </div>                             
+          </div> 
+        </div>        
+        <div class="tab-pane" id="tabB2" v-show="!showtabpane">
+          <div class="sitemap-chart-canvas relative" style="height: auto;">                              
+            <BanDo ref="map" 
+              @daochieuCap="daochieuCap" 
+              @xoaCap="xoaCap" 
+              @suaCap="suaCap"
+              @xoaKetcuoi="xoaKetcuoi" 
+              @taoKetcuoi="taoKetcuoi" 
+              @luuToaDoBanDo="luuToaDoBanDo"
+              @chenketcuoi="chenketcuoi"
+              @suaKetcuoi="suaKetcuoi"
+              @chuyennhanhcap="chuyennhanhcap"
+              @dauNoiCap="dauNoiCap"
+              @thueBaoThuocCap="thueBaoThuocCap"
+              @thueBaoThuocKetCuoi="thueBaoThuocKetCuoi"
+              @suaTram="suaTram"
+            >          
+            </BanDo>   
+            <div class="map-options">
+              <a href="javascript:void(0)" class="btn btn-main btn-settings" v-b-tooltip.hover title="Lưu tọa độ bản đồ" @click="ctrlLuuToaDoBanDo">
+                  <span class="-ap icon-settings"></span>
+              </a>
+              <a href="javascript:void(0)" class="image" v-b-tooltip.hover title="Thay đổi nguồn dữ liệu" @click="ctrlThayDoiNguonDuLieu">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp_6mkJlHX8nZiFY5S_9xYVIJPbmpTwi4dKA&usqp=CAU" alt="" >
+              </a>
+              <a href="javascript:void(0)" class="btn btn-main" v-b-tooltip.hover title="Tọa độ mặc định" @click="ctrlPhanCapMang">
+                  <span class="nc-icon-glyph location_map-pin"></span>
+              </a>
+              <a href="javascript:void(0)" class="btn btn-main" v-b-tooltip.hover title="Duy chuyển đối tượng" @click="ctrlDuyChuyenDoiTuong">
+                  <span class="one-drag"></span>
+              </a>
+            </div>
+            <div class="zoom-actions-bottom">
+                <a href="javascript:void(0)" class="btn btn-main" v-b-tooltip.hover title="Phóng to" @click="BanDoZoomIn()">
+                    <span class="icon -ap icon-plus3"></span>
+                </a>
+                <a href="javascript:void(0)" class="btn btn-main" v-b-tooltip.hover title="Thu nhỏ" @click="BanDoZoomOut()">
+                    <span class="icon -ap icon-minus3"></span>
+                </a>            
+            </div>   
+         </div> 
+        </div>                              
+      </div>      
+    </SplitArea>
+    <SplitArea v-show="getSizeAreaR()>0"  :size="getSizeAreaR()" :minSize="0">
+      <div class="box-col" id="boxOpen">
+        <div class="nav tabs tab-over">
+          <a href="javascript:void(0)" @click="HidePanelDauNoi()" class="active minw0 padr30">{{nodeDauNoi.KYHIEU_KC}}<span class="link nc-icon-outline ui-1_simple-remove f16 text-main remove"></span></a>          
+        </div>  
+        <div class="tab-content marb0 pad0">
+          <div class="list-actions-top">
+              <ul class="list">
+                  <li>
+                      <a href="#">
+                          <span class="icon one-reload"></span>Làm mới
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <span class="icon nc-icon-glyph ui-1_circle-add"></span> Thêm kết cuối con
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <span class="icon one-portao"></span> Port ảo
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <span class="icon nc-icon-glyph business_hierarchy-54"></span> Tối ưu giản đồ
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <span class="icon one-daunoi2"></span> Đấu nối nhanh
+                      </a>
+                  </li>
+                  
+              </ul>
+          </div>
+          <div class="pad10">
+              <div class="grid-stack-box">
+                  <div class="box-col box-form" id="boxLeft1">
+                      <div class="sitemap-chart-canvas relative" style="height: auto;">                         
+                          <div class="map-options">
+                              <a href="#" class="btn btn-main">
+                                  <span class="nc-icon-outline ui-1_zoom-in"></span>
+                              </a>
+                              <a href="#" class="btn btn-main">
+                                  <span class="nc-icon-outline ui-1_zoom-out"></span>
+                              </a>
+                              <a href="#" class="btn btn-main">
+                                  <span class="one-search"></span>
+                              </a>
+                              <a href="#" class="btn btn-main">
+                                  <span class="one-print"></span>
+                              </a>
+                          </div>  
+                          <GraphVizControl ref="GraphVizControl" @onReload="onReload" />                                          
+                      </div>
+                  </div>                 
+              </div>              
+          </div>          
+        </div>               
+      </div>                          
+    </SplitArea>
+  </Split> 
+</div>

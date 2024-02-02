@@ -1,0 +1,2 @@
+import DistributingDocumentsCustomers from './DistributingDocumentsCustomers'
+export default DistributingDocumentsCustomers

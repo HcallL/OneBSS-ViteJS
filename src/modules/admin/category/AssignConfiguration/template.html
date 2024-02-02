@@ -1,0 +1,126 @@
+<div class="main-wrapper">
+    <div>
+        <breadcrumb />
+        <div class="list-actions-top">
+            <ul class="list">
+                <li style="cursor: pointer;" @click="update_cauhinh">
+                    <a>
+                        <span class="icon one-save"></span> Ghi lại
+                    </a>
+                </li>
+                <li @click="get_dsdonvi">
+                    <a>
+                        <span class="icon fa fa-refresh"></span> Lấy ds đơn vị
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-4 col-12">
+                <div class="box-form">
+                    <div class="info-row">
+                        <div class="key">Quy trình</div>
+                        <div class="value">
+                            <select2 :options="cbbQuyTrinh.options" v-model="cbbQuyTrinh.value" />
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="key">Luồng</div>
+                        <div class="value">
+                            <select2 :options="cbbLuong.options" v-model="cbbLuong.value" />
+                        </div>
+                        
+                    </div>
+                    <div class="info-row">
+                        <div class="key">Loại KH</div>
+                        <div class="value">
+                            <select2 :options="cbbLoaiKH.options" v-model="cbbLoaiKH.value" />
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="key">Nguồn đơn</div>
+                        <div class="value">
+                            <select2 :options="cbbNguonDon.options" v-model="cbbNguonDon.value" />
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="key">Dịch vụ</div>
+                        <div class="value">
+                            <select2 :options="cbbDichVuVT.options" v-model="cbbDichVuVT.value" />
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="key">Loại hình</div>
+                        <div class="value">
+                            <select2 :options="cbbLoaiHinh.options" v-model="cbbLoaiHinh.value" />
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="key">Hình thức nhận</div>
+                        <div class="value">
+                            <select2 :options="cbbHinhThuc.options" v-model="cbbHinhThuc.value" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8 col-12">
+                <div class="box-form">
+                    <div style="display: flex;">
+                        <div style="width: 45%;">
+                            <div class="box-form" style="height: 250px;">
+                                <div class="legend-title">Đơn vị đã gán</div>
+                                <div v-if="dsDonViDaGan.length==0" style="text-align: center; margin-top: 10px;font-style: italic;">
+                                    Không có đơn vị nào
+                                </div>
+                                <div v-else class="grid-donvi">
+                                    <div v-for="dv in dsDonViDaGan"
+                                    :key="dv.ma_dv" 
+                                    :class="dv.check?'active':''" 
+                                    @click="dv.check=!dv.check"
+                                    class="donvi">
+                                        <input  type="checkbox" :id="dv.ma_dv" :value="dv.ma_dv" v-model="dv.check">
+                                        <div  class="ten-dv">{{dv.ten_dv}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-btn" style="width: 10%;">
+                            <div @click="assign_selected" class="btn btn-outline-primary btn-sm" >
+                                <span class="icon fa fa-angle-right"></span>
+                            </div>
+                            <div @click="assign_all" class="btn btn-outline-primary btn-sm">
+                                <span class="icon fa fa-angle-double-right"></span>
+                            </div>
+                            <div @click="unassign_selected" class="btn btn-outline-primary btn-sm" >
+                                <span class="icon fa fa-angle-left"></span>
+                            </div>
+                            <div @click="unassign_all" class="btn btn-outline-primary btn-sm">
+                                <span class="icon fa fa-angle-double-left"></span>
+                            </div>
+                        </div>
+                        <div style="width: 45%;">
+                            <div class="box-form" style="height: 250px;">
+                                <div class="legend-title">Đơn vị chưa gán</div>
+                                <div v-if="dsDonViChuaGan.length==0" style="text-align: center; margin-top: 10px;font-style: italic;">
+                                    Không có đơn vị nào
+                                </div>
+                                <div v-else class="grid-donvi">
+                                    <div v-for="dv in dsDonViChuaGan"
+                                    :key="dv.ma_dv" 
+                                    :class="dv.check?'active':''" 
+                                    @click="dv.check=!dv.check"
+                                    class="donvi">
+                                        <input  type="checkbox" :id="dv.ma_dv" :value="dv.ma_dv" v-model="dv.check">
+                                        <div  class="ten-dv">{{dv.ten_dv}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

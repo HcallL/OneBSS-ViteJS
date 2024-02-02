@@ -1,0 +1,653 @@
+<div>
+  <div class="list-actions-top">
+    <ul class="list">
+      <li>
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="layThongTin">
+          <span class="icon one-file-attach"></span> Lấy TT
+        </a>
+      </li>
+      <li :hidden="activetab != 1">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="nhapMoiAction">
+          <span class="icon  one-file-plus"></span> Nhập mới
+        </a>
+      </li>
+      <li :hidden="activetab != 1">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="capNhatAction">
+          <span class="icon one-reload1"></span>Cập nhật
+        </a>
+      </li>
+      <li :hidden="activetab != 1">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="huybo">
+          <span class="icon nc-icon-glyph ui-1_circle-remove"></span>Hủy bỏ
+        </a>
+      </li>
+      <li :hidden="activetab != 1">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="xoaPhieu">
+          <span class="icon one-file-trash"></span>Xóa phiếu
+        </a>
+      </li>
+      <li :hidden="activetab != 2">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="xoaDSHS">
+          <span class="icon one-excel"></span>Xóa DS
+        </a>
+      </li>
+      <li :hidden="activetab != 2">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="giuVciVpi">
+          <span class="icon one-excel"></span>Giữ Vci Vpi
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="ganCong()">
+          <span class="icon one-excel"></span>Gán cổng
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="goCong()">
+          <span class="icon one-excel"></span>Gỡ cổng
+        </a>
+      </li>
+      <li :hidden="activetab != 2">
+        <b-form-file  id="fileUpload" v-model="arrayImportFile.filexcel" ref="fileUpload" @change="this.onChange" accept=".xls, .xlsx" class="-ap icon-more_horiz" v-show="arrayImportFile.ok"></b-form-file>
+        <a @click="this.chooseFiles" title="File excel MA_TB hoặc MA_LT">
+          <span class="icon one-xlsx"></span> Nhập từ excel
+        </a>
+      </li>
+      <li :hidden="activetab == 1">
+        <a href="#/ecms/doicong-theodanhsach-ttvt"  @click="xuatExcel()">
+          <span class="icon one-xlsx"></span>Xuất Excel
+          <!-- <download-excel :data="arrayDataGrids.dataExport" >
+            <span class="icon one-xlsx"></span>Xuất Excel
+          </download-excel> -->
+        </a>
+      </li>
+      <download-excel :data="dataExcelEx" id="exportexcel"  style="display: none;">
+        <span class="icon one-xlsx"></span>Xuất Excel
+      </download-excel>
+      <download-excel :data="errExcel.dataEx" id="exporterror"  style="display: none;">
+        <span class="icon one-xlsx"></span>Xuất Excel
+      </download-excel>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="xuatVisa()">
+          <download-excel :data="arrayDataExcelExport.dataVisa" >
+            <span class="icon one-excel"></span>File Visa
+          </download-excel>
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="xuatVisaCu()">
+          <download-excel :data="arrayDataExcelExport.dataVisaCu" >
+            <span class="icon one-excel"></span>File Visa cũ
+          </download-excel>
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="kichHoat()">
+          <span class="icon one-excel"></span>Kích hoạt
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="guiCauHinh()">
+          <span class="icon one-excel"></span>Gửi cấu hình
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="huyCongCu()">
+          <span class="icon one-excel"></span>Hủy cổng cũ
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="hoanThien()">
+          <span class="icon one-excel"></span>Hoàn thiện
+        </a>
+      </li>
+      <li :hidden="activetab != 3">
+        <a href="#/ecms/doicong-theodanhsach-ttvt" @click="dongHoSo()">
+          <span class="icon one-excel"></span>Đóng hồ sơ
+        </a>
+      </li>
+    </ul>
+    <div class="more dropdown">
+      <a href="#" data-toggle="dropdown">
+        <span class="icon -ap  icon-dots-three-vertical"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="#">
+            <span class="dropdown-icon one-phone-remove"></span> Xóa TT
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="dropdown-icon nc-icon-glyph business_contacts"></span> Liên hệ
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="dropdown-icon nc-icon-glyph ui-1_email-83"></span> Email
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="legend-title">
+      <span class="icon fa fa-angle-up" @click="tonggle_div" v-if="div_search"></span>
+      <span class="icon fa fa-angle-down" @click="tonggle_div" v-else="!div_search"></span>
+      Tiêu chí tìm kiếm
+    </div>
+    <div class="box-form" v-show="div_search">
+      <div class="row">
+        <div class="col-sm-4 col-12">
+          <div class="info-row">
+            <div class="key w90">
+              Trạng thái HS
+            </div>
+            <div class="value">
+              <div class="select-custom">
+                <select name="" class="form-control" v-model="arrayCBO.cboTTHS">
+                  <option v-for="ttct in arrayDataToCbo.dsTTCC" :value="ttct.TTCC_ID">{{ttct.TRANGTHAI_CC}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 col-12">
+          <div class="info-row">
+            <div class="key w90">
+              Số máy/ACC
+            </div>
+            <div class="value">
+              <div class="input-icon-right">
+                <input type="text" class="form-control highlight" v-model="arrayInputTab1.soMayAcc">
+                <span class="icon one-search"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2 col-12">
+          <div class="info-row">
+            <div class="key w60">
+              Từ ngày
+            </div>
+            <div class="value">
+              <div class="input-icon-right">
+                <ejs-datepicker
+                  v-model="arrayDate.fromDate"
+                  :format="'dd/MM/yyyy'"
+                ></ejs-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2 col-12">
+          <div class="info-row">
+            <div class="key w60">
+              Đến ngày
+            </div>
+            <div class="value">
+              <div class="input-icon-right">
+                <ejs-datepicker
+                  v-model="arrayDate.toDate"
+                  :format="'dd/MM/yyyy'"
+                ></ejs-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav tabs tab-over">
+      <a href="#tabB1" data-toggle="tab" @click="onclickTab(1)" :class="[ activetab == 1 ? 'active' : '' ]">B1. Lập hồ sơ cắt chuyển</a>
+      <a href="#tabB2" data-toggle="tab" @click="onclickTab(2)" :class="[ activetab == 2 ? 'active' : '' ]">B2. Lập danh sách cắt chuyển cổng</a>
+      <a href="#tabB3" data-toggle="tab" @click="onclickTab(3)" :class="[ activetab == 3 ? 'active' : '' ]">B3. Cấp cổng cho số máy/account</a>
+    </div>
+    <div class="tab-content box-form">
+      <div :class="[ activetab == 1 ? 'active' : '' ]" id="tabB1" v-if="activetab == 1">
+        <div class="row">
+          <div class="col-sm-6 col-12">
+            <div class="info-row">
+              <div class="key w80">
+                Tên hồ sơ
+              </div>
+              <div class="value">
+                <input type="text" class="form-control" v-model="arrayInputTab1.tenHoSo">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-12">
+            <div class="info-row">
+              <div class="key w90">
+                Trạng thái
+              </div>
+              <div class="value">
+                <div class="select-custom">
+                  <select name="" id="2" class="form-control" v-model="arrayCBO.cboTrangThai">
+                    <option v-for="ttct in arrayDataToCbo.dsTTCCIn" :value="ttct.TTCC_ID">{{ttct.TRANGTHAI_CC}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-12">
+            <div class="info-row">
+              <div class="key w90">
+                Ngày bắt đầu
+              </div>
+              <div class="value">
+                <div class="input-icon-right">
+                  <ejs-datepicker
+                    v-model="arrayDate.startDate"
+                    :format="'dd/MM/yyyy'"
+                    :value="arrayDate.startDate"
+                  ></ejs-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 col-12">
+            <div class="info-row">
+              <div class="key w80">
+                Loại hồ sơ
+              </div>
+              <div class="value">
+                <div class="select-custom">
+                  <select name="" id="3" class="form-control" v-model="arrayCBO.cboHoSo" :disable="enableButtonTab1">
+                    <option v-for="ttct in arrayDataToCbo.dsHoSoCC" :value="ttct.LOAIHSCC_ID">{{ttct.LOAI_HS_CC}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-12">
+            <div class="info-row">
+              <div class="key w70">
+                Hình thức
+              </div>
+              <div class="value">
+                <div class="select-custom">
+                  <select name="" id="4" class="form-control" v-model="arrayCBO.cboKieuCC">
+                    <option v-for="ttct in arrayDataToCbo.dsKieuCC" :value="ttct.KIEUCC_ID">{{ttct.TEN_KIEU}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-12">
+            <div class="check-action mart5">
+              <input type="checkbox" class="check" v-model="arrayInputTab1.chkChuyen119">
+              <span class="name">Chuyển 119</span>
+            </div>
+          </div>
+          <div class="col-sm-3 col-12">
+            <div class="info-row">
+              <div class="key w90">
+                Ngày kết thúc
+              </div>
+              <div class="value">
+                <div class="input-icon-right">
+                  <ejs-datepicker
+                    v-model="arrayDate.endDate"
+                    :format="'dd/MM/yyyy'"
+                    :value="arrayDate.endDate"
+                  ></ejs-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="key w80">
+            Ghi chú
+          </div>
+          <div class="value">
+            <input type="text" class="form-control" v-model="arrayInputTab1.ghiChu">
+          </div>
+        </div>
+        <div class="legend-title">Danh sách hồ sơ</div>
+        <div class="table-content" v-if="arrayDataGrids.dsHoSoTab1">
+          <DataGrid v-bind:columns="[
+            {fieldName: 'TEN_HS', headerText: 'Tên hồ sơ', allowFiltering: true, allowSorting: false},
+            {fieldName: 'LOAI_HS_CC', headerText: 'Loại hồ sơ', allowFiltering: true, allowSorting: false, width: 5},
+            {fieldName: 'TEN_KIEU', headerText: 'Kiểu cắt chuyển', allowFiltering: true, allowSorting: false},
+            {fieldName: 'TRANGTHAI_CC', headerText: 'Trạng thái cắt chuyển', allowFiltering: true, allowSorting: false},
+            {fieldName: 'NGAY_YC', headerText: 'Ngày yêu cầu', allowFiltering: true, allowSorting: false},
+            {fieldName: 'NGAYBD_DK', headerText: 'Ngày bắt đầu', allowFiltering: true, allowSorting: false},
+            {fieldName: 'NGAYKT_DK', headerText: 'Ngày KT dự kiến', allowFiltering: true, allowSorting: false},
+            {fieldName: 'SO_TB_DK', headerText: 'Số thuê bao cắt chuyển', allowFiltering: true, allowSorting: false},
+            {fieldName: 'MA_ND', headerText: 'Người lập', allowFiltering: true, allowSorting: false},
+            ]"
+                    v-bind:dataSource="arrayDataGrids.dsHoSoTab1"
+                    :showFilter="true"
+                    :enable-paging-server="false"
+                    :allow-paging="true"
+                    @selectedRowChanged="onClickdsHoSoTab1">
+
+          </DataGrid>
+        </div>
+      </div>
+      <div :class="[ activetab == 2 ? 'active' : '' ]" id="tabB2" v-if="activetab == 2">
+        <div class="legend-title">Danh sách thuê bao cắt chuyển</div>
+        <div class="info-row">
+          <div class="key w80 nowrap">
+            Hồ sơ cắt chuyển
+          </div>
+          <div class="value">
+            <div class="select-custom">
+
+              <ComboboxGrid ref="cap-goc" v-bind:columns="[
+                      {fieldName: 'TEN_HS', headerText: 'Tên hồ sơ', allowFiltering: true},
+                      {fieldName: 'LOAI_HS_CC', headerText: 'Loại hồ sơ', allowFiltering: true},
+                      {fieldName: 'TEN_KIEU', headerText: 'Kiểu hồ sơ', allowFiltering: true},
+                      ]" v-bind:dataSource="arrayDataToCbo.dsHoSoCCTab2" textField="TEN_HS" valueField="HSCC_ID"
+                            @selectedChanged="cbb_selectedChanged">
+              </ComboboxGrid>
+
+
+            </div>
+          </div>
+          <div class="value w60 nowrap">
+            <div class="check-action mart5">
+              <input type="checkbox" class="check" v-model="arrayInputTab1.chkCungDoiCap">
+              <span class="name">Lấy kèm các mã cùng đôi cáp</span>
+            </div>
+          </div>
+        </div>
+        <DataGrid v-bind:columns="[
+            {fieldName: 'SLOT', headerText: 'Slot', allowFiltering: true, allowSorting: false},
+            {fieldName: 'PORT', headerText: 'Port', allowFiltering: true, allowSorting: false},
+            {fieldName: 'ONT_ID', headerText: 'Ont ID', allowFiltering: true, allowSorting: false},
+            {fieldName: 'VPI', headerText: 'Vpi', allowFiltering: true, allowSorting: false},
+            {fieldName: 'VCI', headerText: 'Vci', allowFiltering: true, allowSorting: false},
+            {fieldName: 'MA_TB', headerText: 'Số máy/ACC', allowFiltering: true, allowSorting: false},
+            {fieldName: 'MA_LT', headerText: 'Mã LT', allowFiltering: true, allowSorting: false},
+            {fieldName: 'MADOICAP', headerText: 'Mã đôi cáp', allowFiltering: true, allowSorting: false},
+            {fieldName: 'DICHVU_VT', headerText: 'Dịch vụ', allowFiltering: true, allowSorting: false},
+            {fieldName: 'LOAIHINH_TB', headerText: 'Loại hình', allowFiltering: true, allowSorting: false},
+            {fieldName: 'TOCDO', headerText: 'Gói cước', allowFiltering: true, allowSorting: false},
+            {fieldName: 'TEN_TB', headerText: 'Tên thuê bao', allowFiltering: true, allowSorting: false},
+            {fieldName: 'DIACHI_LD', headerText: 'Địa chỉ lắp đặt', allowFiltering: true, allowSorting: false},
+            {fieldName: 'HOLD_VCI_VPI', headerText: 'Giữ VciVpi', allowFiltering: true, allowSorting: false, allowHtml: true},
+            {fieldName: 'TRANGTHAI_TB', headerText: 'Trạng thái', allowFiltering: true, allowSorting: false},
+            ]"
+                  v-bind:dataSource="arrayDataGrids.dsHoSoTab2"
+                  dataKeyField="MA_TB"
+                  :showFilter="true"
+                  :enable-paging-server="false"
+                  :allow-paging="true"
+                  :defaultColumnCheckboxChecked="true"
+                  :showColumnCheckbox="true"
+                  @selectedItemsChanged="selectedItemsTab2">
+
+        </DataGrid>
+      </div>
+      <div :class="[ activetab == 3 ? 'active' : '' ]" id="tabB3" v-if="activetab == 3">
+        <div class="legend-title">Danh sách thuê bao cắt chuyển</div>
+        <div class="grid-stack-box">
+          <Split style="height: 430px;" :gutterSize="16">
+            <SplitArea :size="50" :minSize="500">
+              <div class="box-col box-form" id="boxLeft">
+                <div class="legend-title">Danh sách thuê bao cắt chuyển</div>
+                <div class="row">
+                  <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                      <div class="key">Hồ sơ cắt chuyển</div>
+                      <div class="value">
+                        <div class="select-custom">
+                          <select name="" id="" class="form-control" v-model="arrayCBO.cboHoSoTab3" @change="changeHSCCTab3()">
+                            <option v-for="ttct in arrayDataToCbo.dsHoSoCCTab3" :value="ttct.HSCC_ID">{{ttct.TEN_HS}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                      <div class="key text-main fw6" style="width: 160px;">Số ACC chọn: {{arraySelectedItem.soChonAcc}}</div>
+                      <div class="value">
+                        <div class="check-action mart5">
+                          <input type="checkbox" class="check" v-model="arrayInputTab3.ckbAuto_BNM">
+                          <span class="name">Tự động cấu hình</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                      <div class="key">Trạng thái</div>
+                      <div class="value">
+                        <div class="select-custom">
+                          <select name="" id="6" class="form-control" disabled="disabled">
+                            <option value="">[Chưa chọn giá trị]</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                      <div class="key  text-main fw6" style="width: 160px;">Số port: <span class="text-success">  {{arraySelectedItem.soPort}}</span> - Số VciVpi: <span class="text-success"> {{arraySelectedItem.soVciVpi}}</span></div>
+                      <div class="value">
+                        <div class="check-action mart5">
+                          <input type="checkbox" class="check" v-model="arrayInputTab3.ckbAuto_KH">
+                          <span class="name">Tự động kích hoạt</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-content xo marb0">
+                  <DataGrid v-bind:columns="[
+                      {fieldName: 'MA_TB', headerText: 'Số máy/ACC', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'MA_LT', headerText: 'Mã LT', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'DSLAM_CU', headerText: 'Dslam cũ', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'PORT_CU', headerText: 'Port cũ', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'ONT_ID_CU', headerText: 'Ont ID cũ', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'VPI_VCI_CU', headerText: 'Vpi - Vci cũ', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'DSLAM', headerText: 'Dslam mới', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'PORT_MOI', headerText: 'Port mới', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'ONT_ID_MOI', headerText: 'Ont ID mới', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'VPI_VCI_MOI', headerText: 'Vpi', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'MADOICAP', headerText: 'Mã đôi cáp', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'LOAIHINH_TB', headerText: 'Dịch vụ', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'NGAY_KH', headerText: 'Ngày KH', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'NGAY_CH', headerText: 'Ngày CH', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'TRANGTHAI_TB', headerText: 'Trạng thái TB', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'LOG_KH', headerText: 'Log KH', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'TEMP_KH', headerText: 'Temp KH', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'TOCDO', headerText: 'Gói cước', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'TEN_TB', headerText: 'Tên thuê bao', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'DIACHI_LD', headerText: 'Địa chỉ lắp đặt', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'TRANGTHAI_KH_ID', headerText: 'Cấu hình', allowFiltering: true, allowSorting: false},
+                      {fieldName: 'TRANGTHAI_CC', headerText: 'Trạng thái cổng', allowFiltering: true, allowSorting: false}
+
+                      ]"
+                            v-bind:dataSource="arrayDataGrids.dsHoSoTab3"
+                            dataKeyField="DKCC_ID"
+                            :showFilter="true"
+                            :enable-paging-server="false"
+                            :allow-paging="true"
+                            :showColumnCheckbox="true"
+                            @selectedItemsChanged="selectedItemsHso">
+
+                  </DataGrid>
+
+                </div>
+              </div>
+            </SplitArea>
+            <SplitArea :size="50" :minSize="500">
+              <div class="box-col box-form" id="boxRight">
+                <div class="legend-title">Danh sách cổng</div>
+                <div class="row">
+                  <div class="col-sm-7 col-12">
+                    <div class="info-row">
+                      <div class="key w110">Trạm thiết bị</div>
+                      <div class="value">
+                        <div class="select-custom">
+                          <SelectExt v-model="arrayCBO.cboTramTBTab3" :dataSource="arrayDataToCbo.dsTramTBTab3" dataTextField="TEN_DV"
+                                     dataValueField="DONVI_ID" @change="changeTramTbi()"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-5 col-12">
+                    <div class="info-row">
+                      <div class="key w60">Dslam</div>
+                      <div class="value">
+                        <div class="select-custom">
+                          <ComboboxGrid ref="cap-goc1" v-bind:columns="[
+                            {fieldName: 'TENDSLAM', headerText: 'Tên hồ sơ', allowFiltering: true},
+                            {fieldName: 'LOAI_TBI', headerText: 'Loại hồ sơ', allowFiltering: true},
+                            {fieldName: 'PORTTD', headerText: 'Kiểu hồ sơ', allowFiltering: true},
+                            ]" v-bind:dataSource="arrayDataToCbo.dsDslamTab3" textField="TENDSLAM" valueField="DSLAM_ID"
+                                        @selectedChanged="cbbDslam_selectedChanged">
+                          </ComboboxGrid>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-7 col-12">
+                    <div class="info-row">
+                      <div class="key w110">Kiểu quy hoạch</div>
+                      <div class="value">
+                        <div class="select-custom">
+                          <select name="" id="9" class="form-control" v-model="arrayCBO.cboKieuQuyhoachTab3" @change="changeCboKieuQH()" :disabled="!enableSelectFollowPortTD">
+                            <option v-for="ttct in arrayDataToCbo.dsKieuQuyhoachTab3" :value="ttct.QUYHOACH_ID">{{ttct.QUYHOACH}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-5 col-12">
+                    <div class="info-row">
+                      <div class="key w60">Loại QH</div>
+                      <div class="value">
+                        <div class="select-custom">
+                          <select name="" id="10" class="form-control" v-model="arrayCBO.cboLoaiQuyhoachTab3" @change="changeCboLoaiQH()" :disabled="!enableSelectFollowPortTD">
+                            <option v-for="ttct in arrayDataToCbo.dsLoaiQuyhoachTab3" :value="ttct.LOAIKN_ID">{{ttct.KETNOI}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-stack-box" v-show="visibleGridTab3">
+                  <Split style="height: 430px;" :gutterSize="16" v-if="!sPort_TD">
+                    <SplitArea :size="50" :minSize="300">
+                      <div class="box-col" id="boxLeft1">
+                        <div class="legend-title mart23">Danh sách Port</div>
+                        <div class="table-content">
+                          <DataGrid v-bind:columns="[
+                                  {fieldName: 'SLP', headerText: 'Port', allowFiltering: true, allowSorting: false},
+                                  {fieldName: 'ONT_ID', headerText: 'Ont ID', allowFiltering: true, allowSorting: false},
+                                  ]"
+                                    v-bind:dataSource="arrayDataGrids.dsLuoiPortTab3"
+                                    dataKeyField="PORTVL_ID"
+                                    :showFilter="true"
+                                    :enable-paging-server="false"
+                                    :allow-paging="true"
+                                    :showColumnCheckbox="true"
+                                    @selectedItemsChanged="selectedItemsPort">
+                          </DataGrid>
+                        </div>
+                      </div>
+                    </SplitArea>
+                    <SplitArea :size="50" :minSize="500">
+                      <div class="box-col" id="boxRight1">
+                        <div class="legend-title">
+                          <div class="pull-left mart10">
+                            Danh sách vci vpi
+                          </div>
+                          <div class="pull-right">
+                            <div class="select-custom">
+
+                              <select name="" id="11" class="form-control" v-model="arrayCBO.cboTrangthaiVCIVPITab3" @change="changeCboTrangthaiVCIVPI()">
+                                <option v-for="ttct in arrayDataToCbo.dsTTVciVpiTab3" :value="ttct.TT_PORT_ID">{{ttct.TRANGTHAI_PORT}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="table-content">
+                          <DataGrid v-bind:columns="[
+                                {fieldName: 'VPI', headerText: 'Vpi/Svlan', allowFiltering: true, allowSorting: false},
+                                {fieldName: 'VCI', headerText: 'Vci/Cvlan', allowFiltering: true, allowSorting: false},
+                                {fieldName: 'TRANGTHAI', headerText: 'Trạng thái', allowFiltering: true, allowSorting: false}
+                                ]"
+                                    v-bind:dataSource="arrayDataGrids.dsVCIVPITab3"
+                                    dataKeyField="PORTVL_ID"
+                                    :showFilter="true"
+                                    :showColumnCheckbox="true"
+                                    :enable-paging-server="false"
+                                    :allow-paging="true"
+                                    @selectedItemsChanged="selectedItemsVCI">
+
+                          </DataGrid>
+                        </div>
+                      </div>
+                    </SplitArea>
+                  </Split>
+                  <Split style="height: 430px;" :gutterSize="16" v-else>
+                    <div class="box-col" id="boxLeft1">
+                      <div class="legend-title mart23">Danh sách Port</div>
+                      <div class="table-content">
+                        <DataGrid v-bind:columns="[
+                                    {fieldName: 'TEN_CARD', headerText: 'Card', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'VITRI', headerText: 'Vị trí port', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'SLOT', headerText: 'Slot', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'PORT', headerText: 'Port', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'VPI', headerText: 'Vpi/Svlan', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'VCI', headerText: 'Vci/Cvlan', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'RACK', headerText: 'Rack', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'SHELF', headerText: 'Shelf', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'SELFID01', headerText: 'SeftID', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'SELFID02', headerText: 'OLT Slot', allowFiltering: true, allowSorting: false},
+                                    {fieldName: 'SELFID03', headerText: 'OLT Port', allowFiltering: true, allowSorting: false}
+                                    ]"
+                                  v-bind:dataSource="arrayDataGrids.dsPortFixTab3"
+                                  dataKeyField="PORT_ID"
+                                  :showFilter="true"
+                                  :enable-paging-server="false"
+                                  :allow-paging="true"
+                                  :showColumnCheckbox="true"
+                                  @selectedItemsChanged="selectedItemsPortFix">
+                        </DataGrid>
+                      </div>
+                    </div>
+                  </Split>
+                </div>
+              </div>
+            </SplitArea>
+          </Split>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <b-modal v-model="arrayDataXoa.modalXoa" title="" size="sm" hide-footer>
+    <span>Bạn có chắc muốn xóa hồ sơ này?</span>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="arrayDataXoa.modalXoa =! arrayDataXoa.modalXoa">Hủy</button>
+      <button type="button" class="btn btn-primary" @click="xacNhanXoa">Đồng ý</button>
+    </div>
+  </b-modal>
+  <b-modal id="modal-xacnhan-themds" title="Thêm danh sách từ file Excel" ok-only @ok="okThemDS">
+    <div>Bạn có muốn thêm danh sách thuê bao vào hồ sơ không?</div>
+    <template #modal-footer="{ ok, cancel }">
+      <b-button variant="primary" style="color: white" @click="ok()">Xác nhận</b-button>
+      <b-button variant="secondary" style="color: white" @click="cancel()">Hủy bỏ</b-button>
+    </template>
+  </b-modal>
+</div>
+<!--<script type="text/javascript" src="../../../../static/vendor/jquery/split.js"></script>-->
+<!--<script type="text/javascript">-->
+<!--  Split(['#boxLeft', '#boxRight'], { sizes: [50, 50],})-->
+<!--  Split(['#boxLeft1', '#boxRight1'], { sizes: [50, 50], })-->
+<!--</script>-->
+<!--<script type="text/javascript" src="../../../../static/vendor/jquery/split.js"></script>-->

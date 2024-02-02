@@ -1,0 +1,63 @@
+.is-invalid >>> span.e-input-group {
+  border-color: #dc3545 !important;
+}
+::ng-deep.list-actions-top .list > li.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+::v-deep .list-actions-top .list > li.disabled  > a {
+  color: #6c757d !important;
+}
+
+::v-deep .modal-export > .modal-dialog > .modal-content > .modal-body {
+  padding: 0;
+}
+
+::v-deep .list-actions-top .list > li.prevent {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+::v-deep .col-last-r .table-result tbody tr:not(.empty) td:nth-last-child(1) {
+  text-align: right!important;
+}
+
+::v-deep .col-5-r .table-result tbody tr td:nth-child(5) {
+  text-align: right!important;
+}
+
+::v-deep .custom-kycuoc .w120 {
+  width: 80px!important;
+}
+
+::v-deep .custom-kycuoc .w60 {
+  width: 50px!important;
+}
+
+::v-deep .custom-kycuoc .w60 select{
+  width: 60px!important;
+}
+
+::v-deep .custom-kycuoc .e-input-group {
+  max-width: 196px!important;
+  margin-right: 10px!important;
+}
+
+::v-deep .table-result tbody tr:nth-child(2n+2):hover {
+  background-color: #FFF9EB !important;
+}
+
+::v-deep .table-result tbody tr:nth-child(2n+2).highlight1 {
+  background-color: #F9E1A9 !important;
+}
+
+::v-deep .grid table tr th button.btn-sort:not(.btn-sorted) {
+  opacity: 0.2;
+}
+
+::v-deep .grid table tr th button.btn-sort {
+  background-color: transparent;
+  border: 0px;
+  padding-right: 0px;
+  color: #007eff;
+}

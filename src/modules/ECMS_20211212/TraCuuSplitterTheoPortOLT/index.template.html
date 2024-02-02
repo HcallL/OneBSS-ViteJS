@@ -1,0 +1,372 @@
+<div>
+    <div class="list-actions-top">
+        <ul class="list">
+            <li>
+                <a href="javascript:void(0)" @click="onClickButtonTraCuu">
+                    <span class="icon one-file-search"></span> Tra cứu
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" @click="onClickButtonXuatExcel">
+                    <span class="icon one-xlsx"></span> Xuất Excel
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="page-content">
+        <div class="box-form">
+            <div class="legend-title">Tìm kiếm thông tin Splitter</div>
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            <div class="check-action">
+                                <input type="checkbox" class="check" :checked="true" :disabled="true">
+                                <span class="name">TTVT <BssRequiredMarker/></span>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <BssErrorMarker :has-error="$v.ttvtId.$error">
+                                <ejs-dropdownlist 
+                                    locale='vi-VN' 
+                                    v-model="$v.ttvtId.$model"
+                                    :dataSource='dsTtvt' 
+                                    :allowFiltering='true' 
+                                    :fields="{value:'DONVI_ID', text: 'TEN_DV'}" ></ejs-dropdownlist>
+                            </BssErrorMarker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            <div class="check-action">
+                                <input type="checkbox" class="check" :checked="true" :disabled="true">
+                                <span class="name">Tổ QL <BssRequiredMarker/></span>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <BssErrorMarker :has-error="$v.toQlId.$error">
+                                <ejs-dropdownlist 
+                                    locale='vi-VN' 
+                                    v-model="$v.toQlId.$model"
+                                    :dataSource='dsToQl' 
+                                    :allowFiltering='true' 
+                                    :fields="{value:'DONVI_ID', text: 'TEN_DV'}" ></ejs-dropdownlist>
+                            </BssErrorMarker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            <div class="check-action">
+                                <input type="checkbox" class="check" v-model="chkVeTinhChecked">
+                                <span class="name">Vệ tinh</span>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <ejs-dropdownlist 
+                                locale='vi-VN' 
+                                v-model="veTinhId"
+                                :dataSource='dsVeTinh' 
+                                :allowFiltering='true' 
+                                :fields="{value:'DONVI_ID', text: 'TEN_DV'}"
+                                :enabled="chkVeTinhChecked"></ejs-dropdownlist>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            <div class="check-action">
+                                <input type="checkbox" class="check" v-model="chkOltChecked">
+                                <span class="name">Thiết bị OLT</span>
+                            </div>
+                        </div>
+                        <div class="value">
+                            <ejs-dropdownlist 
+                                locale='vi-VN' 
+                                v-model="oltId"
+                                :dataSource='dsOlt' 
+                                :allowFiltering='true' 
+                                :fields="{value:'THIETBI_ID', text: 'TEN_TB'}"
+                                :enabled="chkOltChecked"></ejs-dropdownlist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            <div class="check-action">
+                                <input type="checkbox" class="check" v-model="chkCardOltChecked">
+                                <span class="name">Card OLT</span>
+                            </div>
+                        </div>
+                        <div class="value tracuu-splitter-theo-port-olt">
+                            <treeselect
+                                v-model="cardOltId"
+                                :multiple="false"
+                                :flat="true"
+                                :options="dsCardOlt"
+                                :searchable="false"
+                                :disabled="!chkCardOltChecked"
+                                :clearable="false"
+                                noOptionsText="Không có dữ liệu"
+                                placeholder="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            <div class="check-action">
+                                <input type="checkbox" class="check" v-model="chkPortOltChecked">
+                                <span class="name">Port OLT</span>
+                            </div>
+                        </div>
+                        <div class="value tracuu-splitter-theo-port-olt-ejs-multiselect">
+                            <ejs-multiselect 
+                                mode="CheckBox"
+                                selectAllText="Chọn tất cả"
+                                unSelectAllText="Bỏ chọn tất cả"
+                                v-model="portOltId"
+                                locale='vi-VN' 
+                                :dataSource='dsPortOlt' 
+                                :allowFiltering='true' 
+                                :fields="{value:'PORTVL_ID', text: 'VITRI'}" 
+                                :showSelectAll="true"
+                                :showDropDownIcon="true"
+                                :enabled="chkPortOltChecked"></ejs-multiselect>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            Tên/Ký hiệu
+                        </div>
+                        <div class="value">
+                            <input type="text" placeholder="Nhập tên/ký hiệu Splitter cần tìm" ref="input-ten-kyhieu" class="form-control highlight" v-model="kyHieu">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8 col-12">
+                    <div class="info-row">
+                        <div class="key w100">
+                            Địa chỉ
+                        </div>
+                        <div class="value">
+                            <input type="text" placeholder="Nhập địa chỉ/ghi chú" class="form-control highlight" v-model="diaChi">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="group-buttons marb10 mart10">
+            <button class="btn btn-second button-note-bg padt5 padb5" @click="onClickButtonTraCuu">
+                <span class="one-file-search normal inline vcenter f24"></span> Tra cứu
+            </button>
+            <button class="btn btn-second button-note-bg padt5 padb5" @click="onClickButtonLamLai">
+                <span class="one-reload normal inline vcenter f24"></span> Làm lại
+            </button>
+            <div class="inline">
+                <div class="list-note">
+                    <span class="fw6 inline vcenter marl10">Ghi chú:</span>
+                    <div class="inline item vcenter marl10">
+                        <span class="shape inline vcenter w24 h24" style="background: #ED5050;"></span> Splitter đã hết cổng
+                    </div>
+                    <div class="inline item vcenter marl10">
+                        <span class="shape inline vcenter w24 h24" style="background: #F39738;"></span> Splitter còn 1 cổng
+                    </div>
+                    <div class="inline item vcenter marl10">
+                        <span class="shape inline vcenter w24 h24" style="background: #EAC344;"></span> Splitter còn 2 cổng
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-form tracuu-splitter-theo-port-olt">
+            <div class="legend-title">Danh sách thuê bao</div>
+            <div class="table-content grid">
+                <table class="table-result tree-grid-2 table-gachle">
+                    <thead class="center">
+                        <tr>
+                            <th></th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Tên Splitter
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.TEN_KC.sortIcon" @click="onClickBtnSort('TEN_KC')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        STT
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.STT.sortIcon" @click="onClickBtnSort('STT')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        ID
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.KETCUOI_ID.sortIcon" @click="onClickBtnSort('KETCUOI_ID')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Cấp SP
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.CAP_SP.sortIcon" @click="onClickBtnSort('CAP_SP')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Ngày cập nhật
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.NGAY_CN.sortIcon" @click="onClickBtnSort('NGAY_CN')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Địa chỉ
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.DIACHI.sortIcon" @click="onClickBtnSort('DIACHI')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Dung lượng
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.DUNGLUONG.sortIcon" @click="onClickBtnSort('DUNGLUONG')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Đã dùng
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.DLSD.sortIcon" @click="onClickBtnSort('DLSD')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Chưa dùng
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.DLROI.sortIcon" @click="onClickBtnSort('DLROI')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Thiết bị OLT
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.TEN_OLT.sortIcon" @click="onClickBtnSort('TEN_OLT')"></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="cell-header">
+                                    <span class="header-title">
+                                        Cổng OLT (slot/port)
+                                    </span> 
+                                    <button class="btn-sort fa" :class="sort.PORT_OLT.sortIcon" @click="onClickBtnSort('PORT_OLT')"></button>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="dsThueBao.length == 0"><td colspan="12" class="center">Không có bản ghi nào để hiển thị</td></tr>
+                        <template v-for="thueBao in dsThueBao">
+                            <template v-if="thueBao.ROOT">
+                                <tr v-if="!thueBao.EXPANDED" class="tree-open" :style="{background: thueBao.COLOR + '!important'}">
+                                    <td></td>
+                                    <td>{{thueBao.TEN_KC}}</td>
+                                    <td class="tright">{{thueBao.STT}}</td>
+                                    <td class="tright">{{thueBao.KETCUOI_ID}}</td>
+                                    <td class="tright">{{thueBao.CAP_SP}}</td>
+                                    <td class="tright">{{thueBao.NGAY_CN}}</td>
+                                    <td>{{thueBao.DIACHI}}</td>
+                                    <td class="tright">{{thueBao.DUNGLUONG}}</td>
+                                    <td class="tright">{{thueBao.DLSD}}</td>
+                                    <td class="tright">{{thueBao.DLROI}}</td>
+                                    <td>{{thueBao.TEN_OLT}}</td>
+                                    <td class="tright">{{thueBao.PORT_OLT}}</td>
+                                </tr>
+                                <tr v-else class="tree-open" :style="{background: thueBao.COLOR + '!important'}">
+                                    <td class="tree-name nowrap">
+                                        <div class="tree-arrow"></div>
+                                    </td>
+                                    <td>{{thueBao.TEN_KC}}</td>
+                                    <td class="tright">{{thueBao.STT}}</td>
+                                    <td class="tright">{{thueBao.KETCUOI_ID}}</td>
+                                    <td class="tright">{{thueBao.CAP_SP}}</td>
+                                    <td class="tright">{{thueBao.NGAY_CN}}</td>
+                                    <td>{{thueBao.DIACHI}}</td>
+                                    <td class="tright">{{thueBao.DUNGLUONG}}</td>
+                                    <td class="tright">{{thueBao.DLSD}}</td>
+                                    <td class="tright">{{thueBao.DLROI}}</td>
+                                    <td>{{thueBao.TEN_OLT}}</td>
+                                    <td class="tright">{{thueBao.PORT_OLT}}</td>
+                                </tr>
+                            </template>
+                            <template v-else>
+                                <tr :style="{background: thueBao.COLOR + '!important'}">
+                                    <td class="tree-first bg-white">
+                                        <div class="tree-line"></div>
+                                        <div class="tree-indent"></div>
+                                    </td>
+                                    <td>{{thueBao.TEN_KC}}</td>
+                                    <td class="tright">{{thueBao.STT}}</td>
+                                    <td class="tright">{{thueBao.KETCUOI_ID}}</td>
+                                    <td class="tright">{{thueBao.CAP_SP}}</td>
+                                    <td class="tright">{{thueBao.NGAY_CN}}</td>
+                                    <td>{{thueBao.DIACHI}}</td>
+                                    <td class="tright">{{thueBao.DUNGLUONG}}</td>
+                                    <td class="tright">{{thueBao.DLSD}}</td>
+                                    <td class="tright">{{thueBao.DLROI}}</td>
+                                    <td>{{thueBao.TEN_OLT}}</td>
+                                    <td class="tright">{{thueBao.PORT_OLT}}</td>
+                                </tr>
+                            </template>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <b-modal id="modal-tuychon" title="Tùy chọn" ok-only @ok="okChonKieuXuatExcel">
+        <div style="position: relative;">
+            <div>Chọn định dạng trình bày dữ liệu xuất</div>
+            <div style="padding-left: 20px; padding-top: 10px;">
+                <input type="radio" id="radio-dang-excel" :value="1" v-model="tuyChonXuatExcel">
+                <label for="radio-dang-excel">Xuất dữ liệu dạng bảng excel</label>
+            </div>
+            <div style="padding-left: 20px">
+                <input type="radio" id="radio-dang-tree" :value="2" v-model="tuyChonXuatExcel">
+                <label for="radio-dang-tree">Xuất dữ liệu dạng cây (Giống như trên giao diện chương trình)</label>
+            </div>          
+        </div>
+        <template #modal-footer="{ ok, cancel }">
+            <b-button variant="primary" style="color: white" @click="ok()">Xác nhận</b-button>
+            <b-button variant="secondary" style="color: white" @click="cancel()">Hủy bỏ</b-button>
+        </template>
+    </b-modal>
+    <ModalXuatDuLieu 
+        id="modal-xuat-dulieu-tracuu-splitter-theo-port-olt" 
+        :thuocTinh="dsThuocTinh"
+        :data="dsThueBaoXuatExcel"></ModalXuatDuLieu>
+</div>

@@ -1,0 +1,55 @@
+.control-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 60px 0px;
+  .btn {
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+// .grid-donvi
+.grid-donvi {
+  overflow-y: auto;
+  height: 180px;
+  .donvi {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    color: #212529;
+    
+    height: 40px;
+    display: flex;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    input[type='checkbox'] {
+      width: 17px;
+      height: 17px;
+      
+      margin-left: 10px;
+    }
+    .ten-dv{
+      margin-left: 10px;
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+  .donvi:nth-child(odd) {
+    background-color: #F1F8FF;
+  }
+  .donvi.active {
+    background-color:#F9E1A9 !important;
+  }
+  .donvi:hover {
+      background-color: #FFF9EB;
+    }
+}
+.grid-donvi .donvi:last-child {
+  border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,8 @@
+<div class="box-form">
+  <div class="legend-title">Quy hoạch sợi cáp</div>
+  <div class="text-main marb10">Quy hoạch sợi cáp dùng để cấp cho thuê bao</div>
+  <DataGrid ref="grid" :enabledSelectFirstRow="false" v-bind:columns="[
+                {fieldName: 'TEN_SOI', headerText: 'Sợi cáp', allowFiltering: true},
+            ]" v-bind:dataSource="dataSource" :showFilter="true" :showColumnCheckbox="true" dataKeyField="SOI"
+    @selectedItemsChanged="grid_selectedItemsChanged" @dataBound="grid_dataBound" />
+</div>

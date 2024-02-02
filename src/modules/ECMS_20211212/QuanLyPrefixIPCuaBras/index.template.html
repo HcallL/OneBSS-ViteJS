@@ -1,0 +1,379 @@
+<div>
+  <div class="list-actions-top quanly-prefix-cua-bras">
+      <ul class="list">
+          <li :class="{'disable-btn': !buttonState.btnNhapMoiEnabled}">
+              <a href="javascript:void(0)" @click="onClickButtonNhapMoi">
+                  <span class="icon nc-icon-glyph ui-1_circle-add"></span> Nhập mới
+              </a>
+          </li>
+          <li :class="{'disable-btn': !buttonState.btnCapNhatEnabled}">
+              <a href="javascript:void(0)" @click="onClickButtonCapNhat">
+                  <span class="icon one-calendar-sync"></span> Cập nhật
+              </a>
+          </li>
+          <li :class="{'disable-btn': !buttonState.btnHuyBoEnabled}">
+              <a href="javascript:void(0)" @click="onClickButtonHuyBo">
+                  <span class="icon ui-1_circle-remove nc-icon-glyph"></span> Hủy bỏ
+              </a>
+          </li>
+          <li :class="{'disable-btn': !buttonState.btnXoaEnabled}">
+              <a href="javascript:void(0)" @click="onClickButtonXoa">
+                  <span class="icon one-trash"></span> Xóa Prefix
+              </a>
+          </li>
+          <li :class="{'disable-btn': !buttonState.btnSinhIPEnabled}">
+              <a href="javascript:void(0)" @click="onClickButtonSinhIp">
+                  <span class="icon one-ip"></span> Tạo dải IP
+              </a>
+          </li>
+      </ul>
+  </div>
+  <div class="page-content">
+      <div class="row">
+          <div class="col-sm-9 col-12">
+              <div class="row">
+                  <div class="col-sm-3 col-12">
+                      <div class="box-form" style="height: 444px; overflow-y: scroll;">
+                          <div class="legend-title">Thông tin prefix</div>
+                          <div class="info-row">
+                              <div class="key w50">Bras <bss-required-marker /></div>
+                              <div class="value">
+                                  <div class="select-custom select-bras">
+                                      <bss-error-marker :has-error="$v.brasId.$error">
+                                        <treeselect 
+                                            v-model="$v.brasId.$model"
+                                            :options="treeSelectOptions"
+                                            :multiple="true"
+                                            :limit="1"
+                                            :limitText="count => `và ${count} giá trị khác`"
+                                            placeholder="" />
+                                      </bss-error-marker>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="info-row">
+                              <div class="key w50">Prefix <bss-required-marker /></div>
+                              <div class="value">
+                                    <bss-error-marker :has-error="$v.prefix.$error">
+                                        <input type="text" maxlength="11" ref="prefix-input" v-model.trim="$v.prefix.$model" class="form-control" :disabled="buttonState.btnNhapMoiEnabled">
+                                    </bss-error-marker>
+                              </div>
+                          </div>
+                          <div class="info-row">
+                              <div class="key w50">Loại IP <bss-required-marker /></div>
+                              <div class="value">
+                                  <div class="select-custom">
+                                        <bss-error-marker :has-error="$v.loaiIpId.$error">
+                                            <select v-model="loaiIpId" class="form-control">
+                                                <option v-for="loaiIp in dsLoaiIp" :value="loaiIp.LOAI_ID">{{loaiIp.LOAI}}</option>
+                                            </select>
+                                        </bss-error-marker>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-6 col-12">
+                                    <div class="info-row">
+                                        <div class="key w50">Từ số <bss-required-marker /></div>
+                                        <div class="value">
+                                            <bss-error-marker :has-error="$v.tuso.$error">
+                                                <vue-numeric 
+                                                    class="form-control" 
+                                                    v-model="$v.tuso.$model" 
+                                                    :min="0" 
+                                                    :max="254" 
+                                                    :minus="false" 
+                                                    :empty-value="0" 
+                                                    :separator="'.'"></vue-numeric>
+                                            </bss-error-marker>
+                                        </div>
+                                    </div>
+                              </div>
+                              <div class="col-sm-6 col-12">
+                                  <div class="info-row">
+                                        <div class="key w50">Đến số <bss-required-marker /></div>
+                                        <div class="value">
+                                            <bss-error-marker :has-error="$v.tuso.$error">
+                                                <vue-numeric class="form-control" v-model="denso" :min="0" :max="254" :minus="false" :empty-value="0" :separator="'.'"></vue-numeric>
+                                            </bss-error-marker>
+                                        </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-9 col-12">
+                      <div class="box-form">
+                          <div class="legend-title">Thông tin loại hình thuê bao prefix</div>
+                          <div class="info-row">
+                              <div class="key">Dịch vụ VT</div>
+                              <div class="value">
+                                  <div class="select-custom">
+                                      <select v-model="dichvuvtId" class="form-control" @change="onChangeComboDichvuvtId($event)">
+                                          <option v-for="dichvuvt in dsDichVuVt" :value="dichvuvt.DICHVUVT_ID">{{dichvuvt.TEN_DVVT}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="box-move-select-table">
+                              <div class="box-col">
+                                  <div class="title-bg-main">
+                                      <span class="title">Loại hình đã gán</span>
+                                  </div>
+                                  <div class="table-content grid" style="height:250px;">
+                                      <table class="table-result nowrap">
+                                          <thead class="center">
+                                              <tr>
+                                                  <th class="w20"></th>
+                                                  <th class="w20">
+                                                    <div class="check-action">
+                                                        <input type="checkbox" class="check" v-model="checkAllLoaiHinhDaGan">
+                                                        <span class="name"></span>
+                                                    </div>
+                                                  </th>
+                                                  <th>
+                                                    <div class="cell-header">
+                                                        <span class="header-title">
+                                                            Loại hình
+                                                        </span> 
+                                                        <button class="btn-sort fa" :class="sortIconLoaiHinhDaGan" @click="onClickBtnSortLoaiHinhDaGan()"></button>
+                                                    </div>
+                                                  </th>
+                                              </tr>
+                                              <tr>
+                                                  <th class="w20">
+                                                      <div class="check-action">
+                                                          <span class="nc-icon-glyph ui-2_filter text-main"></span>
+                                                      </div>
+                                                  </th>
+                                                  <th class="w20">
+                                                      <div class="check-action">
+                                                          <input 
+                                                              type="checkbox" 
+                                                              class="check"
+                                                              v-model="tableDsLoaiTbDaGan.searchData.CHECKED"
+                                                              @change="onFilterLoaiHinhDaGan" />
+                                                          <span class="name"></span>
+                                                      </div>
+                                                  </th>
+                                                  <th>
+                                                      <div class="input-icon-right">
+                                                          <input 
+                                                              type="text" 
+                                                              class="form-control"
+                                                              v-model="tableDsLoaiTbDaGan.searchData.LOAIHINH_TB" 
+                                                              v-on:keyup.enter="onFilterLoaiHinhDaGan"/>
+                                                          <span class="icon nc-icon-outline ui-1_zoom"></span>
+                                                      </div>
+                                                  </th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr 
+                                                v-for="loaiTb in tableDsLoaiTbDaGan.data" 
+                                                :class="{highlight1: loaiTb.LOAITB_ID == tableDsLoaiTbDaGan.selected}"
+                                                @click="onClickDongCuaBangDsLoaiTbDaGan(loaiTb.LOAITB_ID, loaiTb.rowIndex)">
+                                                  <td class="w20 center">
+                                                      <span v-if="loaiTb.LOAITB_ID == tableDsLoaiTbDaGan.selected" class="fa fa-play text-main"></span>
+                                                  </td>
+                                                  <td class="w20 center">
+                                                      <div class="check-action">
+                                                          <input type="checkbox" class="check" :value="loaiTb.LOAITB_ID" v-model="tableDsLoaiTbDaGan.checked">
+                                                          <span class="name"></span>
+                                                      </div>
+                                                  </td>
+                                                  <td>{{loaiTb.LOAIHINH_TB}}</td>
+                                              </tr>
+                                              <tr v-if="!tableDsLoaiTbDaGan.data || tableDsLoaiTbDaGan.data.length == 0">
+                                                  <td colspan="3" class="center">Không có bản ghi nào để hiển thị</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                                  <BssLocalPagination1
+                                      :datasource="pagerDsLoaiTbDaGan" 
+                                      :selectedRowIndex="tableDsLoaiTbDaGan.selectedRowIndex"
+                                      @change="onPageChangeDsLoaiTbDaGan" />
+                              </div>
+                              <div class="actions padt0">
+                                  <button class="btn btn-main" @click="onClickButtonGoGan">
+                                      <span class="-ap icon-chevron-thin-right"></span>
+                                  </button>
+                                  <button class="btn btn-main" @click="onClickButtonGan">
+                                      <span class="-ap icon-chevron-thin-left"></span>
+                                  </button>
+                              </div>
+                              <div class="box-col">
+                                  <div class="title-bg-main">
+                                      <span class="title">Loại hình chưa gán</span>
+                                  </div>
+                                  <div class="table-content grid" style="height:250px;">
+                                      <table class="table-result nowrap">
+                                          <thead class="center">
+                                              <tr>
+                                                  <th class="w20"></th>
+                                                  <th class="w20">
+                                                    <div class="check-action">
+                                                        <input type="checkbox" class="check" v-model="checkAllLoaiHinhChuaGan">
+                                                        <span class="name"></span>
+                                                    </div>
+                                                  </th>
+                                                  <th>
+                                                    <div class="cell-header">
+                                                        <span class="header-title">
+                                                            Loại hình
+                                                        </span> 
+                                                        <button class="btn-sort fa" :class="sortIconLoaiHinhChuaGan" @click="onClickBtnSortLoaiHinhChuaGan()"></button>
+                                                    </div>
+                                                  </th>
+                                              </tr>
+                                              <tr>
+                                                  <th class="w20">
+                                                      <div class="check-action">
+                                                          <span class="nc-icon-glyph ui-2_filter text-main"></span>
+                                                      </div>
+                                                  </th>
+                                                  <th class="w20">
+                                                      <div class="check-action">
+                                                          <input 
+                                                              type="checkbox" 
+                                                              class="check" 
+                                                              v-model="tableDsLoaiTbChuaGan.searchData.CHECKED"
+                                                              @change="onFilterLoaiHinhChuaGan" />
+                                                          <span class="name"></span>
+                                                      </div>
+                                                  </th>
+                                                  <th>
+                                                      <div class="input-icon-right">
+                                                          <input 
+                                                              v-model="tableDsLoaiTbChuaGan.searchData.LOAIHINH_TB" 
+                                                              v-on:keyup.enter="onFilterLoaiHinhChuaGan" 
+                                                              type="text" 
+                                                              class="form-control">
+                                                          <span class="icon nc-icon-outline ui-1_zoom"></span>
+                                                      </div>
+                                                  </th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr v-for="loaiTb in tableDsLoaiTbChuaGan.data" 
+                                                  :class="{highlight1: loaiTb.LOAITB_ID == tableDsLoaiTbChuaGan.selected}"
+                                                  @click="onClickDongCuaBangDsLoaiTbChuaGan(loaiTb.LOAITB_ID, loaiTb.rowIndex)">
+                                                  <td class="w20 center">
+                                                      <span v-if="loaiTb.LOAITB_ID == tableDsLoaiTbChuaGan.selected" class="fa fa-play text-main"></span>
+                                                  </td>
+                                                  <td class="w20 center">
+                                                      <div class="check-action">
+                                                          <input type="checkbox" class="check" :value="loaiTb.LOAITB_ID" v-model="tableDsLoaiTbChuaGan.checked">
+                                                          <span class="name"></span>
+                                                      </div>
+                                                  </td>
+                                                  <td>{{loaiTb.LOAIHINH_TB}}</td>
+                                              </tr>
+                                              <tr v-if="!tableDsLoaiTbChuaGan.data || tableDsLoaiTbChuaGan.data.length == 0">
+                                                <td colspan="3" class="center">Không có bản ghi nào để hiển thị</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                                  <BssLocalPagination1 
+                                      :datasource="pagerDsLoaiTbChuaGan" 
+                                      :selectedRowIndex="tableDsLoaiTbChuaGan.selectedRowIndex" 
+                                      @change="onPageChangeDsLoaiTbChuaGan" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="box-form">
+                <div class="legend-title">Danh sách prefix</div>
+                <DataGrid 
+                    ref="grid-prefix" 
+                    v-bind:columns="[			
+                        {fieldName: 'TENBRAS', headerText: 'Bras', allowFiltering: true},
+                        {fieldName: 'PREFIX', headerText: 'Prefix', allowFiltering: true},
+                        {fieldName: 'TUSO', headerText: 'Từ số', allowFiltering: true},
+                        {fieldName: 'DENSO', headerText: 'Đến số', allowFiltering: true},
+                        {fieldName: 'LOAI', headerText: 'Loại', allowFiltering: true},
+                    ]"
+                    v-bind:dataSource="dsPrefixIp"
+                    :showFilter="true"
+                    :panelDataHeight="300"
+                    @selectedRowChanged="onSelectRowPrefixIp"></DataGrid>		
+            </div>
+          </div>
+          <div class="col-sm-3 col-12">
+              <div class="box-form" style="height: 869px;">
+                  <div class="legend-title">Danh sách IP</div>
+                  <div class="table-content" >
+                      <table class="table-result nowrap">
+                          <thead class="center">
+                              <tr>
+                                  <th class="w20"></th>
+                                  <th>
+                                      IP
+                                  </th>
+                                  <th>Trạng thái số</th>
+                              </tr>
+                              <tr>
+                                  <th class="w20">
+                                      <div class="check-action">
+                                          <span class="nc-icon-glyph ui-2_filter text-main"></span>
+                                      </div>
+                                  </th>
+                                  <th>
+                                      <div class="input-icon-right">
+                                          <input 
+                                              v-model="tableDsIp.searchData.IP" 
+                                              v-on:keyup.enter="onFilterDsIp"
+                                              type="text" 
+                                              class="form-control" />
+                                          <span class="icon nc-icon-outline ui-1_zoom"></span>
+                                      </div>
+                                  </th>
+                                  <th>
+                                      <div class="input-icon-right">
+                                          <input 
+                                              v-model="tableDsIp.searchData.TEN_TTSO" 
+                                              v-on:keyup.enter="onFilterDsIp"
+                                              type="text" 
+                                              class="form-control" />
+                                          <span class="icon nc-icon-outline ui-1_zoom"></span>
+                                      </div>
+                                  </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr v-for="ip in tableDsIp.data" 
+                                  :class="{highlight1: ip.IP == tableDsIp.selected}"
+                                  @click="onClickDongCuaBangDsIp(ip.IP, ip.rowIndex)">
+                                  <td class="w20 center">
+                                      <span v-if="ip.IP == tableDsIp.selected" class="fa fa-play text-main"></span>
+                                  </td>
+                                  <td class="center">
+                                      {{ip.IP}}
+                                  </td>
+                                  <td>{{ip.TEN_TTSO}}</td>
+                              </tr>
+                              <tr v-if="!tableDsIp.data || tableDsIp.data.length == 0">
+                                <td colspan="3" class="center">Không có bản ghi nào để hiển thị</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <BssLocalPagination1 
+                      :datasource="pagerDsIp" 
+                      :selectedRowIndex="tableDsIp.selectedRowIndex" 
+                      @change="onPageChangeDsIp" />
+              </div>
+          </div>
+      </div>
+  </div>
+  <b-modal v-model="xacNhanXoa" centered title="Thông báo" size="sm" @ok="okXoaPrefix">        
+      <span>Bạn muốn xóa prefix IP cho bras không</span>
+      <template #modal-footer="{ ok, cancel }">
+        <b-button variant="secondary" style="color: white" @click="cancel()">Hủy</b-button>
+        <b-button variant="primary" style="color: white" @click="ok()">Đồng ý</b-button>
+    </template>
+  </b-modal>
+</div>

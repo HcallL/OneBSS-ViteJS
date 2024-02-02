@@ -1,0 +1,94 @@
+<div class="main-wrapper">
+  <breadcrumb :header="header" />
+  <div class="list-actions-top">
+    <ul class="list">
+      <li>
+        <a @click="btnGetData_Click">
+          <span class="icon one-file-plus"></span> Lấy dữ liệu
+        </a>
+      </li>
+      <li v-if="button.btn_ImportExcel.Visible">
+        <a @click="btn_ImportExcel_Click">
+          <span class="icon one-xlsx-import"></span>Import Excel
+        </a>
+        <a style="display: none">
+          <label for="uploadFile">
+            <span class="icon one-upload"></span>Đọc file
+            <input ref="fileInput" type="file" id="uploadFile" v-on:change="importExcel" accept=".xls, .xlsx"
+              v-on:click="$refs.fileInput.value=null" />
+          </label>
+        </a>
+      </li>
+      <li v-if="button.btnCapNhat.Visible">
+        <a @click="btnCapNhat_Click">
+          <span class="icon one-save"></span>Cập nhật
+        </a>
+      </li>
+      <li v-if="button.btn_XuatExcel.Visible">
+        <a @click="btnExportExcel_Click" title="Xuất Excel">
+          <span class="icon one-xlsx-import"></span>Xuất Excel
+        </a>
+      </li>
+      <li v-if="button.btnChuyenTinh.Visible">
+        <a @click="btnChuyenTinh_Click">
+          <span class="icon one-file-arrow-right"></span>Chuyển tỉnh
+        </a>
+      </li>
+      <li v-if="button.btnChuyenChuQuan.Visible">
+        <a @click="btnChuyenChuQuan_Click">
+          <span class="icon one-file-arrow-right"></span>Chuyển chủ quản
+        </a>
+      </li>
+      <li v-if="button.btnXacNhanCQ.Visible">
+        <a @click="btnXacNhanCQ_Click()">
+          <span class="icon nc-icon-glyph ui-1_check-circle-08"></span> Xác nhận CQ
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="page-content">
+    <div class="box-form">
+      <div class="row">
+        <div v-if="Panel1.visible" :class="tag==2||tag==0? 'col-sm-12 col-12': 'col-sm-8 col-12'">
+          <div class="legend-title">Danh sách dữ liệu đối soát</div>
+          <div class="table-content">
+            <DataGrid :dataSource="ds_dulieu_thuebao_table" :columns="columns_ds_dulieu_tb" :showColumnCheckbox="false"
+              :allowPaging="true" :enablePagingServer="false" :enabled-select-first-row="false" :allowExcelExport="true"
+              :enabledSelectFirstRow="true" ref="doisoatGrid" @selectedRowChanged="gridSelected_DL"
+              @queryCellInfo="gridviewDanhSach_RowCellStyle" />
+          </div>
+        </div>
+        <div v-if="Panel2.visible" :class="Panel1.visible? 'col-sm-4 col-12': 'col-sm-12 col-12'">
+          <div class="legend-title">Danh sách dữ liệu chưa đồng bộ</div>
+          <div class="box-col">
+            <DataGrid :columns="columns_ds_dulieu_chuadongbo" :dataSource="ds_dulieu_chuadongbo"
+              :enable-paging-server="false" :allowPaging="true" :showColumnCheckbox="true" ref="chuadongbo"
+              @selectedRowChanged="gridSelected_DLChuadongbo" :showFilter="true"> 
+            </DataGrid>
+          </div>
+
+          <div class="legend-title">Danh sách dữ liệu đã đồng bộ</div>
+          <div class="box-col">
+            <DataGrid :columns="columns_ds_dulieu_dadongbo" :dataSource="ds_dulieu_dadongbo"
+              :enable-paging-server="false" :allowPaging="true" :enabledSelectFirstRow="true"
+              @selectedRowChanged="gridSelected_DLDadongbo" :showFilter="true">
+            </DataGrid>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <footer class="footer">
+    VNPT-IT &copy; 2021
+  </footer>
+  <!-- <script src="../vendor/jquery/split.js"></script>  -->
+  <!-- <popupLayDuLieu ref="lay_du_lieu"  @accept="acceptlayDuLieu" :data="dataLayDuLieu" :trangthai_id="trangthai_selectted" :loaitb_id="dataCheckeds_ds_loaihinh"/>   -->
+
+  <SearchAccountModal ref="searchAccountModal" @form-close="searchAccountDialogClose" />
+
+</div>
+
+</div>

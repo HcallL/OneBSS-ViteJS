@@ -1,0 +1,17 @@
+.mx-datepicker {
+  width: 100% !important;
+}
+.mx-icon-calendar {
+  font-style: normal !important;
+}
+::v-deep .popupKN {
+}
+::v-deep .popupKN .page-content {
+  position: inherit !important;
+}
+::v-deep .popupKN .breadcrumb-top {
+  display: none !important;
+}
+.popupKN .page-content {
+  // position: inherit !important;
+}

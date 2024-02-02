@@ -1,0 +1,90 @@
+<b-modal
+  :id="modalId"
+  size="lg"
+  no-close-on-backdrop
+  hide-footer
+  hide-header
+  hide-header-close
+  body-class="modal-body p-0">
+  <div class="modal-content popup-box">
+    <div class="popup-header">
+      <div class="title"><span class="icon one-notepad"></span>DANH MỤC KIỂU DSLAM</div>
+      <div
+        class="close -ap icon-close"
+        data-dismiss="modal"
+        @click="$bvModal.hide(modalId)">
+      </div>
+    </div>
+    <div class="list-actions-top">
+      <ul class="list">
+        <li>
+          <a href="javascript:void(0)" @click="resetForm()" :class="{'disable-btn': isDisableBtnNhapMoi}">
+            <span class="icon one-file-plus"></span> Nhập mới
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" @click="themMoi()" :class="{'disable-btn': isDisableBtnGhiLai}">
+            <span class="icon one-save"></span> Ghi lại
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" @click="huy()" :class="{'disable-btn': isDisableBtnHuy}">
+            <span class="icon ui-1_circle-remove nc-icon-glyph"></span> Hủy
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" @click="xoa()" :class="{'disable-btn': isDisableBtnXoa}">
+            <span class="icon one-trash"></span> Xoá
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="popup-body">
+      <div class="box-form">
+        <div class="legend-title">Thông tin kiểu Dslam</div>
+        <div class="info-row">
+          <div class="key w90">
+            Kiểu Dslam
+          </div>
+          <div class="value">
+            <input type="text" class="form-control" v-model = "kieuDslam">
+          </div>
+        </div>
+      </div>
+      <div class="box-form">
+        <div class="legend-title">Danh sách Kiểu Dslam</div>
+        <DataGrid v-bind:columns="[
+            {fieldName: 'KIEU_DSLAM', headerText: 'Kiểu Dslam', allowFiltering: true, allowSorting: false}
+            ]"
+                  v-bind:dataSource="dsDsLam" :showFilter="true" @selectedRowChanged="grid1_selectedRowChanged"></DataGrid>
+<!--        <div class="table-content">-->
+<!--          <table class="table-result table-gachle">-->
+<!--            <thead class="center">-->
+<!--            <tr>-->
+<!--              <th class="w20"></th>-->
+<!--              <th>Kiểu Dslam</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th class="w20"></th>-->
+<!--              <th>-->
+<!--                <div class="input-icon-right">-->
+<!--                  <input type="text" class="form-control">-->
+<!--                  <span class="icon nc-icon-outline ui-1_zoom"></span>-->
+<!--                </div>-->
+<!--              </th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr v-for="(row, index) in dsDsLam" :key="index" @click="onclickDslam(row, index)">-->
+<!--              <td class="w20 center">-->
+<!--                <span v-if="selected==row.KIEUDSLAM_ID" class="fa fa-play text-main"></span>-->
+<!--              </td>-->
+<!--              <td>{{ row.KIEU_DSLAM }}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+</b-modal>

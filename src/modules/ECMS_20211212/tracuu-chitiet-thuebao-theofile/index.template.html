@@ -1,0 +1,63 @@
+<div>
+    <div class="main-wrapper">
+        <ModalXuatDuLieu 
+        id="modal-xuat-dulieu" 
+        :thuocTinh="dsThuocTinh"
+        :data="dataTCExcel"></ModalXuatDuLieu>
+        <div class="list-actions-top">
+            <ul class="list">
+                <li>
+                    <a class="btn" @click="checkDownloadExcel()" :class="{'disable-btn': isDisableBtnXuatExcel}">
+                        <span class="icon one-xlsx"></span>Xuất Excel
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div class="box-form">
+                <div class="legend-title">Chọn file</div>
+                <div class="info-row">
+                    <div class="value">
+                        <div class="input-group">
+                               <div class="input-text">
+                                <b-form-file v-model="file"  id="fileUpload" placeholder="Chọn file excel" 
+                                 ref="fileinput" :state ="isError" accept=".xls, .xlsx"></b-form-file>                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="value w30 nowrap">
+                        <button class="btn btn-second" @click=tracuu()>
+                            <span class="icon one-book normal f20 inline vcenter"></span> Đọc file và tra cứu
+                        </button>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="key fw6 w80 nowrap padt0">*Ghi chú:</div>
+                    <div class="value">
+                        <p>-Tải về file mẫu <a href="#/ecms/tracuu-chitiet-thuebao-theofile" class="link underline" @click="getDsFilemau()">click vào đây</a> hoặc xuất file từ chức năng <a href="#/ecms/tracuu-thuebao-theo-capketcuoi" target="_blank" class="link underline">Tra cứu thuê bao theo cáp/kết cuối</a></p>
+                        <p>-Chương trình chỉ đọc dữ liệu từ cột có tên MA_TB của sheet đầu tiên trong file.</p>
+                        <p>-Cột MA_TB có thể nhập vào số máy, account hoặc mã ảo của thuê bao; Tối đa 500 thuê bao (500 dòng)</p>
+                        <p>-Kết quả trả về được sắp xếp tăng dần theo tên cáp ngọn và đôi cáp ngọn.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box-form">             
+                    <div class="legend-title">Danh sách thuê bao đọc từ file</div>
+                    <DataGrid v-bind:columns="[
+                    {fieldName: 'STT', headerText: 'STT', allowFiltering: false, allowSorting: false}, 
+                    {fieldName: 'MA_TB', headerText: 'Số máy/account', allowFiltering: true},
+                    {fieldName: 'MA_LT', headerText: 'Mã ảo', allowFiltering: true},
+                    {fieldName: 'DAUCUOI', headerText: 'Đầu/Cuối', allowFiltering: true},
+                    {fieldName: 'TRANGTHAI_TB', headerText: 'Trạng thái thuê bao', allowFiltering: true},
+                    {fieldName: 'TEN_TB', headerText: 'Tên TB', allowFiltering: true},
+                    {fieldName: 'SDT_LIENHE', headerText: 'SĐT Liên hệ', allowFiltering: true},
+                    {fieldName: 'TEN_DVVT', headerText: 'Dịch vụ VT', allowFiltering: true},
+                    {fieldName: 'LOAIHINH_TB', headerText: 'Loại hình', allowFiltering: true},
+                    {fieldName: 'DONVI_QL', headerText: 'Tổ quản lý', allowFiltering: true},
+                    {fieldName: 'DIACHI_LD', headerText: 'Địa chỉ LĐ', allowFiltering: true},
+                    ]"
+                        v-bind:dataSource="dataTCExcel" :showFilter="true"></DataGrid>              
+            </div>
+        </div>     
+    </div>    
+</div>

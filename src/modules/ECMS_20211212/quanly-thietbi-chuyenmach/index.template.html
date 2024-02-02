@@ -1,0 +1,40 @@
+<div>
+  <div class="list-actions-top">
+    <ul class="list">
+      <li>
+        <button class="btn" @click="btnNhapMoi_Click()" :disabled="!enabledNew"><span class="icon one-file-plus"></span>
+          Nhập mới</button>
+      </li>
+      <li>
+        <button class="btn" @click="btnGhiLai_Click()" :disabled="!enabledSave"><span class="icon one-save"></span> Ghi
+          lại</button>
+      </li>
+      <li>
+        <button class="btn" @click="btnHuy_Click()" :disabled="!enabledSave"><span
+            class="icon nc-icon-glyph ui-1_circle-remove"></span>Hủy</button>
+      </li>
+      <li>
+        <button class="btn" @click="btnXoa_Click()" :disabled="!enabledDelete"><span class="icon one-trash"></span>
+          Xóa</button>
+      </li>
+    </ul>
+  </div>
+  <div class="page-content">
+    <div class="row">
+      <div class="col-sm-3 col-12">
+        <div class="box-form">
+          <div class="legend-title">Sơ đồ thiết bị</div>
+          <CaySoDoThietBi ref="caySoDoThietBi" @nodeSelected="caySoDoThietBi_nodeSelected" :kieuTu="kieuTu">
+          </CaySoDoThietBi>
+        </div>
+      </div>
+      <div class="col-sm-9 col-12">
+        <div class="box-form text-center" v-show="showEmpty">Chưa chọn thiết bị</div>
+        <FormTuRack ref="formTuRack" v-show="showTuRack"></FormTuRack>
+        <FormShelf ref="formShelf" v-show="showShelf"></FormShelf>
+        <FormCard ref="formCard" v-show="showEwsdCard"></FormCard>
+        <FormEWSD ref="formEwsd" v-show="showEwsd"></FormEWSD>
+      </div>
+    </div>
+  </div>
+</div>

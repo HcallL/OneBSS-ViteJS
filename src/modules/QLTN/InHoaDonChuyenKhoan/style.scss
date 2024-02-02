@@ -1,0 +1,35 @@
+::v-deep .custom-kycuoc .w120 {
+  width: 80px !important;
+}
+
+::v-deep .custom-kycuoc .e-input-group {
+  max-width: 196px !important;
+  margin-right: 10px !important;
+}
+
+
+.modal-inPT {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  ::v-deep .modal-inPT .modal-dialog {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  ::v-deep .modal-inPT .modal-dialog .modal-body {
+   padding: 0;
+  }
+
+  .table-content {
+    overflow: scroll !important;
+  }
+
+  ::v-deep .list-actions-top .list > li.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  ::v-deep .list-actions-top .list > li.disabled  > a {
+    color: #6c757d !important;
+  }

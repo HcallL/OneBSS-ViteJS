@@ -1,0 +1,41 @@
+
+::v-deep .table-result tbody tr:nth-child(2n+2):hover {
+  background-color: #FFF9EB !important;
+}
+
+::v-deep .table-result tbody tr:nth-child(2n+2).highlight1 {
+  background-color: #F9E1A9 !important;
+}
+
+::v-deep .grid table tr th button.btn-sort:not(.btn-sorted) {
+  opacity: 0.2;
+}
+
+::v-deep .grid table tr th button.btn-sort {
+  background-color: transparent;
+  border: 0px;
+  padding-right: 0px;
+  color: #007eff;
+}
+
+::v-deep .list-actions-top .list > li.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+::v-deep .list-actions-top .list > li.disabled > a {
+  color: #6c757d !important;
+}
+
+::v-deep .modal-export .modal-dialog .modal-body {
+  padding: 0;
+ }
+
+ ::v-deep .table-lydo .table-result tr th:last-child {
+   width: 100px;
+   text-align: center !important;
+ }
+
+ ::v-deep .table-lydo .table-result tr td:last-child {
+  text-align: center !important;
+}

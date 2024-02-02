@@ -1,0 +1,33 @@
+.mx-datepicker {
+  width: 100% !important;
+}
+.mx-icon-calendar {
+  font-style: normal !important;
+}
+.modal-dialog {
+  min-width: 1200px;
+}
+.breadcrumb-top .breadcrumb {
+  position: absolute;
+  right: 15px;
+}
+::v-deep .breadcrumb-top .breadcrumb {
+  position: absolute;
+  right: 15px;
+}
+::v-deep .e-dlg-content .page-content {
+  position: relative !important ;
+  top: 0px;
+}
+::v-deep .e-dlg-content .main-wrapper {
+  position: relative !important;
+  top: 0px;
+}
+::v-deep .e-dlg-content .breadcrumb-top {
+  display: none;
+}
+::v-deep input[type='checkbox'][disabled],
+input[type='checkbox'].disabled {
+  outline: 1px solid red !important;
+  background-color: #eee !important;
+}

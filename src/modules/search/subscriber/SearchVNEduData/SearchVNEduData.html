@@ -1,0 +1,44 @@
+<div class="main-wrapper">
+  <breadcrumb :header="header" />
+  <div class="list-actions-top">
+    <ul class="list">
+      <li>
+        <a href="#" @click.prevent="Timkiem_Click()"> <span class="icon one-search"></span>Tìm kiếm </a>
+      </li>
+    </ul>
+  </div>
+  <div class="page-content">
+    <div class="box-form">
+      <div class="legend-title">
+        Thông tin trường học
+      </div>
+      <div class="table-content mart10">
+        <table class="table-result table-gachle">
+          <div>
+            <DataGrid v-bind:columns="ds_truong_vnedu.header" v-bind:dataSource="ds_truong_vnedu.list" :editSettings="{ allowEditing: true, mode: 'Normal' }" :enable-paging-server="false" :allowPaging="false" :showFilter="true" :enabledSelectFirstRow="false" :showColumnCheckbox="false"> </DataGrid>
+          </div>
+
+          <span class="name" style="font-weight:bold;height: 300px;text-align: right;" v-if="data_edu">Tổng: {{count_edu}}</span>
+          <span class="name" style="font-weight:bold;height: 300px;text-align: right;" v-else></span>
+        </table>
+      </div>     
+    </div>
+    <div class="box-form">
+        <div class="legend-title">
+          Thông tin sở giáo dục
+        </div>
+        <div class="table-content mart10">
+          <table class="table-result table-gachle">
+            <div>
+              <DataGrid v-bind:columns="ds_so_vnedu.header" v-bind:dataSource="ds_so_vnedu.list" :editSettings="{ allowEditing: true, mode: 'Normal' }" :enable-paging-server="false" :allowPaging="false" :showFilter="true" :enabledSelectFirstRow="false" :showColumnCheckbox="false"> </DataGrid>
+            </div>
+            <span class="name" style="font-weight:bold;height: 300px;text-align: right;" v-if="data_edu">Tổng: {{count_edu}}</span>
+            <span class="name" style="font-weight:bold;height: 300px;text-align: right;" v-else></span>
+          </table>
+        </div>     
+      </div>
+  </div>
+  <footer class="footer">
+    VNPT-IT &copy; 2021
+  </footer>
+</div>

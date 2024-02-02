@@ -1,0 +1,8 @@
+.disabledInput {
+    pointer-events: none;
+    opacity: 0.4;
+}
+::v-deep .breadcrumb-top .breadcrumb {
+    position: fixed;
+    right: 0;
+}
