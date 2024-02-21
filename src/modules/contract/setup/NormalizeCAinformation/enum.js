@@ -54,9 +54,9 @@ export const LoaiHopDong = {
 	DD_CAPNHATGOI: 47, // Cập nhật gói VCC
 	DD_XOAGOI: 48,     // Xóa gói VCC
 	DD_CAPNHATDATA: 49, // Thêm mới dịch vụ data
-	DD_XOADATA: 50,     // Xóa data VCC  
+	DD_XOADATA: 50,     // Xóa data VCC
 
-	DD_HSSV: 101, // vuth update before 1509  
+	DD_HSSV: 101, // vuth update before 1509
 	DD_DOANVIEN: 102,// vuth update before 1509
 	DK_MULTISIM: 39, // vuth them 27/08/2020
 	GIAHAN: 41, // vuth them 27/08/2020
@@ -118,9 +118,8 @@ export const DichVuVienThong = {
 	MGW_DOITAC: 23,
 	TSL_DOITAC: 24,
 
-	listDichVuCoCap: listDichVuCoCap,//Các dịnh vụ cần nhập cáp
-
-	listDichVuCNTT: listDichVuCNTT//Các dịnh vụ cần nhập cáp
+	listDichVuCoCap: function() { return [DichVuVienThong.CO_DINH,DichVuVienThong.ADSL,DichVuVienThong.MEGAWAN,DichVuVienThong.TSL,DichVuVienThong.IMS] },
+	listDichVuCNTT: function() { return [DichVuVienThong.DICHVU_CNTT,DichVuVienThong.TRUNGTAM_DULIEU,DichVuVienThong.ANTOAN_BAOMAT_TT,DichVuVienThong.HOINGHI_TRUYENHINH] },
 
 }
 
@@ -174,16 +173,16 @@ export const LOAI_DV = {
 	BANHANG_TRUCTIEP: 54,        // Hoangpkn : thêm cho HCM 03/10/2016
 	GD_NHAN_BANGKE: 61,          // Hoangpkn : 13/07/2015
 	KETOAN_NHAN_BANGKE: 62,      // Hoangpkn : 13/07/2015
-	// DIEUHANH_TRUNGTAM_VT : 63,    // vinhpv 
+	// DIEUHANH_TRUNGTAM_VT : 63,    // vinhpv
 	CUA_HANG: 63,                // hoangpkn : 14/09/2016
-	TTDH_NGHIEMTHU: 64,          // Hoangpkn : 18/03/2016 
-	TTKD_NGHIEMTHU: 65,          // Hoangpkn : 18/03/2016 
+	TTDH_NGHIEMTHU: 64,          // Hoangpkn : 18/03/2016
+	TTKD_NGHIEMTHU: 65,          // Hoangpkn : 18/03/2016
 	DONVI_LAPHOPDONG: 72,        // Hoangpkn : 10/10/2016
 	DONVI_LAPHOPDONG_CHA: 73,    // Hoangpkn : 17/10/2016
-	KHO_NHAN_TBI_BAOHANH: 80,    // vinhpv : 08/06/2016 
-	TO_BHSC: 81,                 // vinhpv : 08/06/2016 
-	KHO_NHAN_TBI_BAOHANH_XONG: 82,          // vinhpv : 08/06/2016  
-	HOANTHIEN_BAOHANH: 83,       // vinhpv : 08/06/2016  
+	KHO_NHAN_TBI_BAOHANH: 80,    // vinhpv : 08/06/2016
+	TO_BHSC: 81,                 // vinhpv : 08/06/2016
+	KHO_NHAN_TBI_BAOHANH_XONG: 82,          // vinhpv : 08/06/2016
+	HOANTHIEN_BAOHANH: 83,       // vinhpv : 08/06/2016
 	KENHBAN_THICONG_DV: 98,       // hoangpkn : 25/02/2021
 	TONGDAI_CABMAN: 100,         // Lamnt: 27/10/2015
 	TIEPNHAN_BAOHONG: 66,         // hoangpkn : 10/07/2017
@@ -243,7 +242,7 @@ export const KieuLapDat = {
 	DC_ADSL_KEM_DT: 10,
 	DC_ADSL_KHONG_SO: 11,
 
-	DC_THOAI_DENDUONG_ADSL_COSAN: 207,   // 
+	DC_THOAI_DENDUONG_ADSL_COSAN: 207,   //
 	DC_THOAI_DENDUONG_MYTV_COSAN: 209,
 	DC_THOAI_DENDUONG_MEGAWAN_COSAN: 211,
 	DC_THOAI_KEM_ADSL: 206,
@@ -355,11 +354,11 @@ export const KieuLapDat = {
 	GIAHAN_DV_CNTT: 13131,
 
 	//TuanNA Them kieu lap dat
-	//------Gphone  
+	//------Gphone
 	THAYDOI_DVGT_GP: 171,
 	TAMDUNG_SD_GP: 101,
 	MOTAMDUNG_SD_GP: 102,
-	//------Co Dinh  
+	//------Co Dinh
 	THAYDOI_DVGT_CD: 23,
 	TAMDUNG_SD_CD: 103,
 	MOTAMDUNG_SD_CD: 104,
@@ -368,7 +367,7 @@ export const KieuLapDat = {
 	THAYDOI_DVGT_DD: 165,
 	TAMDUNG_SD_DD: 79,
 	MOTAMDUNG_SD_DD: 80,
-	HUYGOI_HSSSV: 957, // vuth update fix 0210 
+	HUYGOI_HSSSV: 957, // vuth update fix 0210
 	//------IMS
 	THAYDOI_DVGT_IMS: 227,
 	TAMDUNG_SD_IMS: 109,
@@ -540,9 +539,9 @@ export const KHOANMUC_TT = {
 	KMTT_TNTHUEBAO: 15,//Tách nhập thuê bao
 	KMTT_DOITD_MB: 16,//Thay đổi tốc độ mobibroadband
 	KMTT_TDLOAIHINHTB: 17,
-	KMTT_TDDICHVU: 18,//Thay đổi dịch vụ 
+	KMTT_TDDICHVU: 18,//Thay đổi dịch vụ
 	KMTT_KM_LAPDAT: 19,//Khuyến mại lắp đặt
-	KMTT_KM_THIETBI: 20,//Khuyến mại thiết bị 
+	KMTT_KM_THIETBI: 20,//Khuyến mại thiết bị
 	KMTT_KM_DATCOC: 21,//Khuyến mại đặt cọc : Chọn đặt cọc lấy ra khuyến mại.
 	KMTT_DATCOC_KM: 22,//Đặt cọc của khuyến mại : Chọn khuyến mại lấy ra đặt cọc ==> :0
 	KMTT_KM_DVGT: 28,//Khuyến mại cho các khoản dịch vụ gia tăng

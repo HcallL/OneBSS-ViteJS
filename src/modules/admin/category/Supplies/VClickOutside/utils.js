@@ -2,9 +2,10 @@
 // modern import Vue, { version } from 'vue' gives "export 'version' was not
 // found in 'vue'" warnings, so inline require call was used instead.
 // eslint-disable-next-line
-const version = require('vue').version || require('vue').default.version
+// const version = require('vue').version || require('vue').default.version
 
-export const isVue3 = /^3\./.test(version)
+// export const isVue3 = /^3\./.test(version)
+export const isVue3 = false
 
 // eslint-disable-next-line
 export const directiveHooks = {

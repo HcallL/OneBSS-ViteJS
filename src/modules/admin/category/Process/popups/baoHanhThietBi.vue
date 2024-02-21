@@ -57,9 +57,9 @@
                                 <span class="icon nc-icon-glyph ui-1_check-circle-08"></span> Chọn
                             </a>
                         </li>
-                
+
                     </ul>
-                
+
                 </div>
                 <div class="popup-body">
                     <div class="box-form">
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
   </b-modal>
 </template>
@@ -95,7 +95,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   .e-ddb-icons1 {
     font-family: 'e-ddb-icons1';
     speak: none;
@@ -151,7 +151,7 @@
         width:39%;
         height:100%;
     }
-    
+
     .sb-mobile-palette-bar {
         display: block;
         width: 100%;
@@ -160,7 +160,7 @@
         border:0.5px solid #e0e0e0;
         min-height: 40px;
     }
-    
+
     .sb-mobile-diagram {
         width: 100%;
         height: 100%;
@@ -169,10 +169,10 @@
     }
 
     #palette-icon {
-        font-size: 20px; 
+        font-size: 20px;
     }
 }
-    
+
 .sb-mobile-palette-open {
     position: absolute;
     display: block;
@@ -187,18 +187,18 @@ import API from '../API'
 import chonTrangThaiBaoHanh from './chonTrangThaiBaoHanh.vue';
 import {
   DiagramPlugin,
-  NodeModel,
-  UndoRedo,
-  ConnectorModel,
-  PointPortModel,
-  Connector,
+  // NodeModel,
+  // UndoRedo,
+  // ConnectorModel,
+  // PointPortModel,
+  // Connector,
   SymbolPalettePlugin,
-  SymbolInfo,
-  IDragEnterEventArgs,
-  GridlinesModel,
-  ConnectorConstraints,
-  NodeConstraints,
-  SnapConstraints,
+  // SymbolInfo,
+  // IDragEnterEventArgs,
+  // GridlinesModel,
+  // ConnectorConstraints,
+  // NodeConstraints,
+  // SnapConstraints,
 
 } from "@syncfusion/ej2-vue-diagrams";
 Vue.use(DiagramPlugin);
@@ -287,7 +287,7 @@ export default Vue.extend({
         // horizontalGridlines: gridlines,
         // verticalGridlines: gridlines
          constraints: 0
-      },      
+      },
       created: (args) => {
         addEvents();
       },
@@ -376,7 +376,7 @@ export default Vue.extend({
             })
           }
           arrDtPic.forEach(c=>{
-            let targetX = c.x 
+            let targetX = c.x
             let targetY = c.y
             let plusX = 0
             let plusY = 0
@@ -398,13 +398,13 @@ export default Vue.extend({
               targetX += 15
               subX = c.width
             }
-            
+
             let targetDecorator = {
                 style: {
                       strokeColor: '#0176FF',
-                      fill: '#0176FF', 
+                      fill: '#0176FF',
                       strokeWidth: 2
-                  }, 
+                  },
                 shape: 'Arrow',
                 width: c.width,
                 height: c.height

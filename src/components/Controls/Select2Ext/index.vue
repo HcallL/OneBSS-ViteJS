@@ -100,6 +100,9 @@ export default {
     currentSettings: function () {
       let s = this.settings;
       if (s == null || s == undefined) s = {};
+      debugger
+      console.log('$$$$$$$$$$$')
+      console.log($)
       let defaultMatcher = $.fn.select2.defaults.defaults.matcher;
       function customMatcher(params, data) {
         if (

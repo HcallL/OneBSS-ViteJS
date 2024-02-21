@@ -16,6 +16,12 @@ import moment from 'moment'
 import JsonExcel from 'vue-json-excel'
 
 import Select2 from 'v-select2-component'
+import select2 from 'select2'
+
+console.log('select2()')
+console.log(select2())
+select2()
+
 import bssApiCaller from './utils/apiCaller'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
@@ -44,7 +50,7 @@ import { store } from './store'
 import { currency } from './filters/currency'
 import { numeral } from './filters/numeral'
 
-import { loadCldr, setCulture, L10n } from '@syncfusion/ej2-base'
+import {  loadCldr, setCulture, L10n } from '@syncfusion/ej2-base'
 import 'vue2-datepicker/index.css'
 import VueElement from '@/modules/contract/setup/DeclareLandline/components/VueElement.vue'
 // require('erp-ui-element')
@@ -146,6 +152,7 @@ Vue.use(DiagramPlugin)
 Vue.use(ListBoxPlugin)
 Vue.use(MaskedTextBoxPlugin)
 Vue.use(constsPlugin)
+// Vue.use(Select2_NotUse)
 
 Vue.component('treeselect', Treeselect)
 Vue.component('bss-date-picker', BssDatePicker)
@@ -184,19 +191,25 @@ Vue.use(VueGoogleMaps, {
   installComponents: true
 });
 
+
+// import 'bootstrap/dist/js/bootstrap.js'
+// import 'jquery/dist/jquery.slim.min.js'
+import $, { uniqueSort } from 'jquery'
+window.jQuery = window.$ = $
+
 //Ẩn thông báo của google map khi key hết lượt request
-const appendChild = Element.prototype.appendChild;
-const urlCatchers = [
-  "/AuthenticationService.Authenticate?",
-  "/QuotaService.RecordEvent?"
-];
-Element.prototype.appendChild = function (element) {
-  const isGMapScript = element.tagName === 'SCRIPT' && /maps\.googleapis\.com/i.test(element.src);
-  const isGMapAccessScript = isGMapScript && urlCatchers.some(url => element.src.includes(url));
-  if (!isGMapAccessScript)
-    return appendChild.call(this, element);
-  return element;
-};
+// const appendChild = Element.prototype.appendChild;
+// const urlCatchers = [
+//   "/AuthenticationService.Authenticate?",
+//   "/QuotaService.RecordEvent?"
+// ];
+// Element.prototype.appendChild = function (element) {
+//   const isGMapScript = element.tagName === 'SCRIPT' && /maps\.googleapis\.com/i.test(element.src);
+//   const isGMapAccessScript = isGMapScript && urlCatchers.some(url => element.src.includes(url));
+//   if (!isGMapAccessScript)
+//     return appendChild.call(this, element);
+//   return element;
+// };
 
 Vue.prototype.loading = function(type) {
   if (type) {

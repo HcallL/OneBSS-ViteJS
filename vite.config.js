@@ -20,5 +20,13 @@ export default defineConfig({
   },
   build: {
     brotliSize: false, // unsupported in StackBlitz
+    rollupOptions: {
+      entryFileNames: '[name].js',
+      chunkFileNames: '[name].js'
+    }
+  },
+
+  optimizeDeps: {
+    include: ["select2"],
   },
 })

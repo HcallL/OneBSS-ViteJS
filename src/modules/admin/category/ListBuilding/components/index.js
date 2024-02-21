@@ -1,3 +1,3 @@
-import ModalChonDiaChi from '.'
+import ModalChonDiaChi from './ModalChonDiaChi.vue'
 
 export default ModalChonDiaChi

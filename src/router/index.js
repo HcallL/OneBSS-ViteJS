@@ -16,7 +16,7 @@ import Login from '@/modules/AUTH/Login'
 // // // module account
 // import account from '@/modules/account/router.js'
 // // module admin
-// import admin from '@/modules/admin/router.js'
+import admin from '@/modules/admin/router.js'
 // import vnp08 from '@/modules/vnp08/router.js'
 // // // module install
 // import install from '@/modules/install/router.js'
@@ -101,7 +101,7 @@ const router = new Router({
     // ...CABMAN,
     // ...QLSC,
     // ...account,
-    // ...admin,
+    ...admin,
     // ...search,
     // ...install,
     // ...contract,

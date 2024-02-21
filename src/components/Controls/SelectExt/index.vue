@@ -70,6 +70,8 @@ export default {
     };
   },
   mounted: function () {
+    console.log('$$$$$$$$$$$ fn')
+    console.log($.fn)
     $.fn.select2.defaults.set("language", {
       errorLoading: function () {
         return "errorLoading";

@@ -20,11 +20,11 @@ export default {
   mounted () {
     if(!$(".sidebar").hasClass("show"))
       $(".sidebar").addClass("show");
-    $(".sidebar .sidebar-content").hover(function(){
-      $(".sidebar").animate({opacity: 1},'fast');
-    },function(){
-      $(".sidebar").animate({opacity: 0.7},'fast');
-    });
+    // $(".sidebar .sidebar-content").hover(function(){
+    //   $(".sidebar").animate({opacity: 1},'fast');
+    // },function(){
+    //   $(".sidebar").animate({opacity: 0.7},'fast');
+    // });
   },
   methods: {
     addCssFile: function(path){
